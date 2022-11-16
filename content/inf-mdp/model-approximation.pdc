@@ -397,9 +397,9 @@ compare models $\ALPHABET M$ and $\widehat {\ALPHABET M}$
 ## An intermediate model
 
 Define a model $\overline {\ALPHABET M} = \langle \ALPHABET S, \ALPHABET A, 
-\bar p, \bar c \rangle$, where
+\bar p, \bar c, γ \rangle$, where
 $$
-  \bar c(s,a) = c(\phi(s,a))
+  \bar c(s,a) = c(\phi(s),a)
 $$
 and
 $$
