@@ -195,11 +195,11 @@ $$\begin{align*}
  | Q(s_1, a_1) - Q(s_2, a_2) | &\stackrel{(a)}\le
  | c(s_1, a_1) - c(s_2, a_2) | \\
  & \quad + 
- \beta \left|\int V(y) p(y|s_1, a_1) dy -
+ γ \left|\int V(y) p(y|s_1, a_1) dy -
              \int V(y) p(y|s_2, a_2) dy \right|
   \\
   &\stackrel{(b)}\le  L_c d( (s_1, a_1), (s_2, a_2) ) + 
-  \beta L_V L_p d( (s_1, a_1), (s_2, a_2) ),
+  γ L_V L_p d( (s_1, a_1), (s_2, a_2) ),
 \end{align*}$$
 where $(a)$ follows from the triangle inequality and $(b)$ follows from 
 @prp-Kantorovich. Thus, $L_Q = L_c + γ L_p L_V$.
