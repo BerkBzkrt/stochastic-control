@@ -26,7 +26,7 @@ $$ h(s) = \begin{cases}
 \end{cases}$$
 where $c_h$ is the per-unit holding cost, $c_s$ is the per-unit shortage cost, and $p$ is the per-unit procurement cost. Note that we have assumed that the holding or shortage cost is discounted because this cost is incurred at the end of the time period.  
 
-Recall that in the finite horizon setting, the optimal policy was a _base-stock_ policy characterized by thresholds $\{s^*_t\}_{t \ge 1}$. In the infinite horizon discounted setting, we expect the optimal policy to be time-homogeneous, i.e., the thresholds $\{s^*_t\}_{t \ge 1}$ be a constant $s^*$ and not to depend on time.
+Recall that in the finite horizon setting, the optimal policy was a _base-stock_ policy characterized by thresholds $\{σ_t\}_{t \ge 1}$. In the infinite horizon discounted setting, we expect the optimal policy to be time-homogeneous, i.e., the thresholds $\{σ_t\}_{t \ge 1}$ be a constant $σ$ and not to depend on time.
 
 ```{julia}
 #| output: false
@@ -202,13 +202,13 @@ $$\begin{equation}\label{eq:DP-1}
   V^*(s) = c^*(s) + γ \min_{a \in \reals_{\ge 0}} 
   \bigl\{  F(s+a) \bigr\}. 
 \end{equation}$$
-Recall that while proving the structure of the optimal policy, we had shown that $s^* = \arg\min_{s \in \reals}F(s)$ and 
+Recall that while proving the structure of the optimal policy, we had shown that $σ = \arg\min_{s \in \reals}F(s)$ and 
 $$
   \min_{a \in \reals_{\ge 0}} F(s+a)
   =
   \begin{cases}
-  F(s^*), & s \le s^* \\
-  F(s)  , & s > s^*.
+  F(σ), & s \le σ \\
+  F(s)  , & s > σ.
   \end{cases}
 $$
 Consequently,
@@ -216,33 +216,33 @@ $$
   π^*(s)
   =
   \begin{cases}
-  s^* - s, & s \le s^* \\
-  0  , & s > s^*.
+  σ - s, & s \le σ \\
+  0  , & s > σ.
   \end{cases}
 $$
 and
 \begin{equation}\label{eq:opt}
   V^*(s) = 
   \begin{cases}
-  c^*(s) + γ F(s^*), & s \le s^* \\
-  c^*(s) + γ F(s),   & s > s^*
+  c^*(s) + γ F(σ), & s \le σ \\
+  c^*(s) + γ F(s),   & s > σ
   \end{cases}
 \end{equation}
 
 
-Pick a $s \le s^*$ 
+Pick a $s \le σ$ 
 Substituting $s' = s - W$ in \\eqref{eq:opt} and taking expectations, we get
 $$
-F(s) = \EXP[ c^*(s - W) ] + γ F(s^*), \quad s \le s^*.
+F(s) = \EXP[ c^*(s - W) ] + γ F(σ), \quad s \le σ.
 $$
-Taking $s = s^*$ and rearraning, we get
+Taking $s = σ$ and rearraning, we get
 $$
-F(s^*) = \frac{1}{1-γ} \EXP[ c^*(s^*-W) ]
+F(σ) = \frac{1}{1-γ} \EXP[ c^*(σ-W) ]
 $$
 Thus,
 \begin{equation}\label{eq:F}
-F(s) = \EXP[ c^*(s-W) ] + \frac{γ}{1-γ} \EXP[ c^*(s^* - W) ],
-\quad s \le s^*.
+F(s) = \EXP[ c^*(s-W) ] + \frac{γ}{1-γ} \EXP[ c^*(σ - W) ],
+\quad s \le σ.
 \end{equation}
 
 ::: {#lem-inventory-threshold}
@@ -254,35 +254,35 @@ $$
 $$
 Therefore,
 $$
-  s^* =
+  σ =
   \arg\min_{s \in \reals}\EXP[c^*(s-W)]
 $$
 :::
 
 :::{.callout-note collapse="true"} 
 #### Parial Proof
-From the dynamic program, we know that for any $s \le s^*$, not ordering is worse than ordering $s^* - s$. Thus, $F(s) \ge F(s^*)$. Therefore, from \eqref{eq:F}, we get
+From the dynamic program, we know that for any $s \le σ$, not ordering is worse than ordering $σ - s$. Thus, $F(s) \ge F(σ)$. Therefore, from \eqref{eq:F}, we get
 $$
-\EXP[ c^*(s-W) ] + \frac{γ}{1-γ} \EXP[ c^*(s^* - W) ]
+\EXP[ c^*(s-W) ] + \frac{γ}{1-γ} \EXP[ c^*(σ - W) ]
 \ge
-\EXP[ c^*(s^*-W) ] + \frac{γ}{1-γ} \EXP[ c^*(s^* - W) ]
+\EXP[ c^*(σ-W) ] + \frac{γ}{1-γ} \EXP[ c^*(σ - W) ]
 $$
 or simply
 \begin{equation}\label{eq:ineq-1}
-  \EXP[ c^*(s-W) ] \ge \EXP[ c^*(s^*-W) ], \quad s \le s^*.
+  \EXP[ c^*(s-W) ] \ge \EXP[ c^*(σ-W) ], \quad s \le σ.
 \end{equation}
 
 **FIXME**: I don't have a proof of the other side. The result is taken from @Whittle1982 (vol 1, §13.3), but it is stated as an obvious result, without a proof. I cannot figure out a proof of the fact that 
 \begin{equation}\label{eq:ineq-2}
-  \EXP[ c^*(s-W) ] \ge \EXP[ c^*(s^*-W) ], \quad s \ge s^*.
+  \EXP[ c^*(s-W) ] \ge \EXP[ c^*(σ-W) ], \quad s \ge σ.
 \end{equation}
 Please let me know if you know a proof!
 :::
 
 ::: {#thm-inventory-inf}
-The optimal threshold $s^*$ is given by the value of $s^*$ which minimizes $\EXP[ c^*(s^*-W) ]$. In particular, if $F$ denotes the CDF of the demand, then
+The optimal threshold $σ$ is given by the value of $σ$ which minimizes $\EXP[ c^*(σ-W) ]$. In particular, if $F$ denotes the CDF of the demand, then
 $$\begin{equation}
- s^* = F^{-1}\left( \frac{c_s - p(1-γ)/γ}{c_h + c_s} \right).
+ σ = F^{-1}\left( \frac{c_s - p(1-γ)/γ}{c_h + c_s} \right).
  \label{eq:opt-threshold}
 \end{equation}$$
 ::: 
@@ -293,18 +293,18 @@ The proof idea is the same approach as that used for the [newsvendor
 problem](../stochastic/newsvendor.html). In particular, let $f$ denote the
 distribution of $W$, $F$ denote the CDF, and $μ = \EXP[W]$. Then,
 $$\begin{align}
-\EXP[c^*(s^*-W)] &= \EXP[h(s^*-W)] + \frac{1-γ}{γ}p(s^* - μ) 
+\EXP[c^*(σ-W)] &= \EXP[h(σ-W)] + \frac{1-γ}{γ}p(σ - μ) 
 \notag \\
-&= \int_{0}^{s^*} c_h(s^*-w)f(w)dw + 
-   \int_{s^*}^{∞} c_s(w-s^*)f(w)dw + \frac{1-γ}{γ}p(s^* - μ) \notag
+&= \int_{0}^{σ} c_h(σ-w)f(w)dw + 
+   \int_{σ}^{∞} c_s(w-σ)f(w)dw + \frac{1-γ}{γ}p(σ - μ) \notag
 \end{align}$$
 Thereore, 
 $$\begin{align}
-\frac{∂ \EXP[c^*(s^*-W)]}{∂s^*} &=
-  \int_{0}^{s^*} c_h f(w)dw
-+ \int_{s^*}^{\infty}[-c_s] f(w)dw 
+\frac{∂ \EXP[c^*(σ-W)]}{∂σ} &=
+  \int_{0}^{σ} c_h f(w)dw
++ \int_{σ}^{\infty}[-c_s] f(w)dw 
 + \frac{1-γ}{γ}p \notag \\
-&= c_h F(s^*) - c_s(1 - F(s^*))
+&= c_h F(σ) - c_s(1 - F(σ))
 + \frac{1-γ}{γ}p \notag \\
 \end{align}$$
 To find the optimal threshold, we set the derivative to $0$ and simplify to
@@ -312,7 +312,7 @@ obtain \\eqref{eq:opt-threshold}.
 :::
 
 We can use \\eqref{eq:opt-threshold} to find the optimal threshold for the
-example used above. In particular, we need to find the value of $s^*$ at which
+example used above. In particular, we need to find the value of $σ$ at which
 the CDF of the demand equals the value $(c_s - p(1-γ)/γ)/(c_h + c_s)$, as
 shown in @fig-threshold below.
 
@@ -458,7 +458,7 @@ ojs_define(threshold_exp = df_threshold)
 Suppose that the arrival process is exponential with rate $1/\mu$, i.e.,
 the density of $W$ is given by $e^{-s/\mu}/\mu$. Show that the optimal
 threshold is given by
-$$ s^* = \mu \log \left[ \frac{ c_h + c_s} { c_h + p (1-γ)/γ} \right]. $$
+$$ σ = \mu \log \left[ \frac{ c_h + c_s} { c_h + p (1-γ)/γ} \right]. $$
 
  _Hint_: Recall that the CDF the exponential distribution is
  $F(s) = 1 - e^{-s/μ}$.
