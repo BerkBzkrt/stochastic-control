@@ -103,7 +103,7 @@ An implication of this definition is that for differentiable and convex $f$, the
 $$
   g(p) = p x^∘ - f(x^∘)
 $$
-where $x^∘$ solves $p = f'(x^∘)$, which is called the duality condition.
+where $x^∘$ solves $p = f'(x^∘)$, which is called the **duality condition.**
 
 :::{#exm-legendre-fenchel-quadratic}
   Let $f(x) = x^2$. For a fixed $p$, the duality condition is $p = 2x^∘$ or $x^∘ = p/2$. Therefore,
@@ -267,6 +267,41 @@ and
 $$
   f(x) = \sup_{y \in \reals} \bigl\{ xy - g(y) \bigr\}.
 $$
+
+::: {.callout-tip}
+#### An alternative view
+
+Suppose $f$ is a convex function. Then it can be shown that its Legendre transform $g$ is the unique function such that:
+
+1. $f'$ and $g'$ are inverses of each other, i.e., $g'(f'(x)) = x$ and $f'(g'(p)) = p$. 
+2. It satisfies the Fenchel inequality with equality, i.e., $f(x) + g(p(x)) = x p(x)$, for all $x$
+
+The first property shows that $g$ can be computed up to additive constants by solving:
+$$
+  g(p) = \int_0^p (f')^{-1}(q) dq + \text{constant}
+$$
+where we can use the second property to find the constant. 
+
+We illustrate this via the above examples.
+
+- In @exm-legendre-fenchel-quadratic, $f'(x) = 2x$. Therefore, $(f')^{-1}(x) = x/2$. Hence,
+
+  $$
+  g(p) = \int_{0}^p \frac{q}{2} dq + c = \frac{p^2}{4} + c.
+  $$
+
+- In @exm-legendre-fenchel-polynomial, $f'(x) = x^{α-1}$. Therefore, $(f')^{-1} = x^{1/(α-1)}$. Hence
+  $$
+  g(p) = \int_{0}^p q^{1/(α-1)} dq + c = \frac{α-1}{α} p^{α/(α-1)} + c
+  $$
+
+- In @exm-legendre-fenchel-entropy, $f'(x) = \log(x) + \log(1-x)$. Therefore, $(f')^{-1}(x) = e^x/(1 + e^x)$. Hence
+  $$
+  g(p) = \int_{0}^p \frac{e^q}{1 + e^q} dq + c =  \log(1 + e^p) + c'.
+  $$
+
+:::
+
 
 
 ## General definition 
