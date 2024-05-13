@@ -9,7 +9,7 @@ book:
   title: Course Notes
   author: 
     - name: Aditya Mahajan
-      url: "https://cim.mcgill.ca/~adityam"
+      url: "https://aditya.github.io"
       affiliation: McGill University
       affiliation-url: "https://www.mcgill.ca/ece"
   description: "ECES 506 (Stochastic Control and Decision Theory)"
