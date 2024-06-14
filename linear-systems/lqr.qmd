@@ -66,7 +66,7 @@ where the matrix $\MATRIX{Q & S \\ S^\TRANS & R}$ is symmetric and positive semi
 
 Let $x \in \reals^n$ be a random variable with mean $μ$ and covariance $Σ$. Then,
 $$
-\EXP[ x^\TRANS S x ] = μ^\TRANS S μ + \TR(S Σ)
+\EXP[ x^\TRANS P x ] = μ^\TRANS P μ + \TR(P Σ)
 $$
 :::
 
