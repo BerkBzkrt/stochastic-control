@@ -6,13 +6,13 @@ project:
     - 'julia-examples/*.ipynb'
 
 book:
-  title: Course Notes
+  title: Stochastic Control and Decision Theory
   author: 
     - name: Aditya Mahajan
       url: "https://adityam.github.io"
       affiliation: McGill University
       affiliation-url: "https://www.mcgill.ca/ece"
-  description: "ECES 506 (Stochastic Control and Decision Theory)"
+  description: "Course Notes for ECSE 506 (McGill University)"
   site-url: "https://adityam.github.io/stochastic-control/"
 
   repo-url: "https://github.com/adityam/stochastic-control"
