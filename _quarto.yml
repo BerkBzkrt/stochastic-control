@@ -89,6 +89,7 @@ book:
           - linear-systems/large-scale-systems.qmd
     - part: "RL"
       chapters:
+        - rl/intro.qmd
         - rl/stochastic-approximation.qmd
     - part: "Dec-POMDPs"
       chapters:
