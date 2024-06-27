@@ -88,7 +88,7 @@ Suppose we have to design such a controller. We are told the probability distrib
 Our objective to determine a **control policy**, i.e., a function for choosing the control actions. The control policy can be as sophisticated as we want. In principle, it can analyze the entire history of observations and control actions to choose the current control action. Thus, the control action can be written as
 $$ A_t = π_t(S_{1:t}, A_{1:t-1}),$$
 where $S_{1:t}$ is a shorthand for $(S_1, \dots, S_t)$ and a similar
-interpretation holds for $A_{1:t-1})$. The function $π_t$ is called the
+interpretation holds for $A_{1:t-1}$. The function $π_t$ is called the
 **control law** at time $t$. 
 
 

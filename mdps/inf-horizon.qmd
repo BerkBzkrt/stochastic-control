@@ -18,7 +18,7 @@ infinite horizon models.
 
 The most common formulation for infinite horizon models is the discounted
 setup, where the cost function is assumed to be 
-$$ J(π) = \EXP\Bigl[ \sum_{t=1}^\infty γ^{t-1} c_t(S_t, A_t) \Bigr] $$
+$$ J(π) = \EXP^{π}\Bigl[ \sum_{t=1}^\infty γ^{t-1} c_t(S_t, A_t) \Bigr] $$
 where $γ \in (0,1)$ is called the discount factor.
 
 {{< include ../snippets/discount-factor.qmd >}}
