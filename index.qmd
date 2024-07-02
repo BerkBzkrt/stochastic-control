@@ -3,6 +3,9 @@ listing:
   id: summary
   template: ejs/links.ejs
   contents: summary.yml
+
+aliases:
+  - notes/index.html
 ---
 
 # About the course {.unnumbered}
