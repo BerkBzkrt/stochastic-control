@@ -116,8 +116,13 @@ $$
 which shows that $C$ is congruent to a block diagonal matrix, which is
 positive definite when its diagonal blocks are postive definite. Therefore,
 $C$ is positive definite if and only if both $A$ and $B - X^\TRANS A^{-1} X$
-are positive definite. The matrix $B = X^\TRANS A^{-1} X$ is called the Shur
-complement of $A$ in $C$. 
+are positive definite. The matrix $B - X^\TRANS A^{-1} X$ is called the **Schur
+complement** of $A$ in $C$. 
+
+An immediate implication of the above is that
+$$
+\det(C) = \det(A) \det(B - X^\TRANS A^{-1} X).
+$$
 
 ## Determinant bounds
 
