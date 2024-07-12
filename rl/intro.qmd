@@ -27,7 +27,7 @@ The objective is to identify a **control policy** $π = (π_1, π_2, \dots)$, wh
 $$ A_t = \pi_t(S_{1:t}, A_{1:t-1}).$$
 
 The performance of a policy is still given the expected discounted reward under that policy, which of course depends on the model parameters. So, we the performance of policy $π$ under model $θ$ by
-$$ J(π,θ) = \EXP^{\pi}_{θ} \biggl[ \sum_{t=1}^{∞} R_t \biggr] $$
+$$ J(π,θ) = \EXP^{\pi}_{θ} \biggl[ \sum_{t=1}^{∞} γ^{t-1} R_t \biggr] $$
 where the notation $\EXP^{π}_{θ}$ denotes the fact that the expectation depends on the policy $π$ and model parameters $θ$. 
 
 ## The learning objective
