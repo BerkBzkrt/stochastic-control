@@ -532,6 +532,29 @@ Thus, by @cor-model-error-instance-independent, we get
 \end{equation}
 This bound precisely quantifies the engineering intuition that certainty equivalent control laws are good when the noise is "small". This bound may be viewed as a generalization of the bounds on [certainty equivalence for stochastic optimization][Certainty equivalence] presented earlier.
 
+## Variations of a theme: State abstraction
+
+In the analysis above, we assumed that the model $\ALPHABET M$ and the approximate model $\widehat {\ALPHABET M}$ were defined on the same state space. Suppose that is not the case and the approximate model $\widehat {\ALPHABET M}$ is defined on a different state space $\hat {\ALPHABET S}$, i.e., $\widehat {\ALPHABET M} = (\hat {\ALPHABET S}, \ALPHABET A, \hat P, \hat c, γ)$. 
+
+In addition, suppose we are given a surjective function $φ \colon \ALPHABET S \to \hat {\ALPHABET S}$. We can use $φ$ to define a **lifting operator** $\mathcal L_{φ}$ that takes any function on $\hat {\ALPHABET S}$ and "lift" it to $\ALPHABET S$ as follows: for any function $\hat f$ on $\hat {\ALPHABET S}$, $ f = \mathcal L_{φ} \hat f$ is a function on $\ALPHABET S$ given by
+$$ f(s) = \hat f(φ(s)), \quad \forall s \in \ALPHABET S. $$
+
+As before, let $V^*$ and $\hat V^*$ denote the optimal value functions of the true model $\ALPHABET M$ and the approximate model $\hat {\ALPHABET M}$, respectively. Moreover, let $π^*$ and $\hat π^*$ be optimal policies for the true model and the approximate model $\widehat {\ALPHABET M}$, respectively.
+
+We are interested in the following questions:
+
+2. **Value error bounds**: What is the error if $\mathcal L_{φ} \hat V^*$ is used as an approximation of $V^*$?
+
+3. **Model approximation error:** What is the error if the policy $\mathcal L_{φ} \hat π^*$ is used instead of the optimal policy $π^*$.
+
+In order to answer these questions, the following question on policy error bounds is useful:
+
+1. **Policy error bounds:** Given a policy $\hat π$ for model $\widehat {\ALPHABET M}$, let $π = \mathcal L_{φ} \hat π$ denote the lifted policy for model $\ALPHABET M$. What is error if $\mathcal L_{φ} \hat V^{\hat π}$ is used as an approximation for $V^{π}$?
+
+
+
+
+
 ## Notes {-}
 
 The material in this section is adapted from @Bozkurt2023, where the results were presented for unbounded per-step cost. The IPM-based bounds of @thm-model-error-IPM are due to @Muller1997a, but the proof is adapted from @Bozkurt2023, where some generalizations of @thm-model-error-IPM are also presented. The total variation bound in @cor-model-error-instance-independent is due to @Muller1997a. The Wasserstein distance based bound in @cor-model-error-instance-independent is due to @Asadi2018.
