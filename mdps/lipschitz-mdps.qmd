@@ -96,14 +96,16 @@ $$ \| f \|_{L} \le \lim\inf_{n \to ∞} \| f_i \|_{L}. $$
 
 :::
 
-## Kantorovich distance
+## Wasserstein distance
 
 Let $\mu$ and $\nu$ be probability measures on $(\ALPHABET X, d_X)$. The
-_Kantorovich distance_ between distributions $\mu$ and $\nu$ is defined as:
+_Wasserstein distance_ between distributions $\mu$ and $\nu$ is defined as:[^definition]
 $$ K(\mu,\nu) = \sup_{f : \| f\|_L \le 1 }
    \left| \int_{\ALPHABET X} f\, d\mu - \int_{\ALPHABET X} f\, d\nu \right|. $$
 
-The next results follow immediately from the definition of Kantorovich
+[^definition]: The definition provided here is actually the dual of the standard definition of Wasserstein distance. See @thm-Kantorovich for details.
+
+The next results follow immediately from the definition of Wasserstein
 distance.
 
 :::{#prp-Kantorovich}
@@ -115,7 +117,7 @@ $$ \left|
   \| f \|_L \cdot K(μ,ν). $$
 :::
 
-The Kantorivich distance is a special class metrics on probability spaces known as [integral probability meterics (IPMs)][IPM]. @prp-Kantorovich is a special case of a similar general result for IPMs (@prp-IPM-ineq).
+The Wasserstein distance is a special class metrics on probability spaces known as [integral probability meterics (IPMs)][IPM]. @prp-Kantorovich is a special case of a similar general result for IPMs (@prp-IPM-ineq).
 
 [IPM]: ../probability/IPM.qmd
 
