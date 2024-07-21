@@ -544,7 +544,7 @@ $$
 $$
 In the sequel, we assume that the measure $ν$ is fixed and do not carry it in the notation. Given $ν$, and a function $f$ defined on $\ALPHABET S$, define
 $$ \def\SQ{\mathbin{\square}}
-  (f \SQ φ)(\hat s) = \int_{s \in φ^{-1}(s)} f(s) ν(ds),
+  (f \SQ φ)(\hat s) = \sum_{s \in φ^{-1}(s)} f(s) ν(s),
   \quad \forall \hat s \in \hat {\ALPHABET S}.
 $$
 
@@ -573,6 +573,13 @@ We now define two classes of _Bellman mismatch functions_:
      \\
      \MISMATCH^*_{φ} v &= \NORM{ (\BELLMAN^* v) \SQ φ - \hat {\BELLMAN}^* (v \SQ φ) }_{∞}
   \end{align*}
+  Also define the _maximum Bellman mismatch functional_ as
+  \begin{align*}
+  \MISMATCH^{\max}_{φ} v &= \max_{(\hat s,a) \in \hat {\ALPHABET S} × \ALPHABET A}
+  \biggl| \sum_{s \in φ^{-1}(\hat s)} \bigg[
+    c(s,a) + γ \sum_{s' \in \ALPHABET S}P(s'|s,a) v(s') \biggr] \\
+  &\hskip 4em - \hat c(\hat s, a)  - γ \sum_{\hat s' \in \hat {\ALPHABET S}} \hat P(\hat s' | \hat s, a) \sum_{s' \in φ^{-1}(\hat s')} ν(s') v(s') \biggr|
+  \end{align*}
 
 * Functionals $\hat \MISMATCH^{\hat π}_{φ}, \hat \MISMATCH^*_{φ} \colon [\hat {\BELLMAN} \to \reals] \to \reals$ defined as follows:
   \begin{align*}
@@ -580,6 +587,26 @@ We now define two classes of _Bellman mismatch functions_:
      \\
      \hat \MISMATCH^*_{φ} \hat v &= \NORM{ \BELLMAN^*(\hat v \circ φ) - (\hat {\BELLMAN}^* \hat v) \circ φ }_{∞}
   \end{align*}
+  Also define the _maximum Bellman mismatch functional_ as
+  \begin{align*}
+  \hat \MISMATCH^{\max}_{φ} \hat v &= \max_{(s,a) \in \ALPHABET S × \ALPHABET A}
+  \biggl| c(s,a) + γ \sum_{s' \in \ALPHABET S}P(s'|s,a) \hat v(φ(s')) \\
+  &\hskip 4em - \hat c(φ(s), a)  - γ \sum_{\hat s' \in \hat {\ALPHABET S}} \hat P(\hat s' | φ(s), a) \hat v(\hat s') \biggr|
+  \end{align*}
+
+Similar to @lem-mismatch-bellman, we have the following.
+
+:::{#lem-mismatch-bellman-abstract}
+The following inequalities hold:
+
+* $\sup_{π \in Π} \MISMATCH^{π}_{φ} v = \MISMATCH^{\max}_{φ} v$
+* $\MISMATCH^*_{φ} v \le \MISMATCH^{\max}_{φ} v$.
+
+and also
+
+* $\sup_{\hat π \in \hat Π} \hat \MISMATCH^{\hat π}_{φ} v = \hat \MISMATCH^{\max}_{φ} \hat v$
+* $\hat \MISMATCH^*_{φ} \hat v \le \hat \MISMATCH^{\max}_{φ} \hat v$.
+:::
 
 The Bellman mismatch functionals can be used to bound the performance difference of a policy between the true and the approximate model.
 
@@ -735,6 +762,12 @@ $$
     α := \| V^* - V^{\hat π^* \circ} \|_∞ \le
     \frac{1}{1-γ} \bigl[ \MISMATCH^*_{φ} \hat V^* + \MISMATCH^{\hat
     π^*}_{φ} \hat V^* \bigr]. 
+$$
+Moreover, since $\MISMATCH^{\max}_{φ} \hat V^*$ is an upper bound for both
+$\MISMATCH^{\hat π^*}_{φ} \hat V^*$ and $\MISMATCH^*_{φ}
+\hat V^*$, we have
+$$
+    α \le \frac{2}{(1-γ)}  \MISMATCH^{\max}_{φ}  \hat V^*. 
 $$
 :::
 
