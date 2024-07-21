@@ -569,16 +569,15 @@ We now define two classes of _Bellman mismatch functions_:
 
 * Functionals $\MISMATCH^{π}_{φ}, \MISMATCH^*_{φ} \colon [\ALPHABET S \to \reals] \to \reals$, defined as follows:
   \begin{align*}
-     \MISMATCH^{π}_{φ}v &= \NORM{ (\BELLMAN^{π} v) \SQ φ - (\hat {\BELLMAN}^{π\SQ φ}(v \SQ φ)}_{∞}
+     \MISMATCH^{π}_{φ}v &= \NORM{ \BELLMAN^{π} v - (\hat {\BELLMAN}^{π\SQ φ}(v\SQ φ)) \circ φ}_{∞}
      \\
-     \MISMATCH^*_{φ} v &= \NORM{ (\BELLMAN^* v) \SQ φ - \hat {\BELLMAN}^* (v \SQ φ) }_{∞}
+     \MISMATCH^*_{φ} v &= \NORM{ \BELLMAN^* v  - (\hat {\BELLMAN}^* (v \SQ φ)) \circ φ }_{∞}
   \end{align*}
   Also define the _maximum Bellman mismatch functional_ as
   \begin{align*}
-  \MISMATCH^{\max}_{φ} v &= \max_{(\hat s,a) \in \hat {\ALPHABET S} × \ALPHABET A}
-  \biggl| \sum_{s \in φ^{-1}(\hat s)} \bigg[
-    c(s,a) + γ \sum_{s' \in \ALPHABET S}P(s'|s,a) v(s') \biggr] \\
-  &\hskip 4em - \hat c(\hat s, a)  - γ \sum_{\hat s' \in \hat {\ALPHABET S}} \hat P(\hat s' | \hat s, a) \sum_{s' \in φ^{-1}(\hat s')} ν(s') v(s') \biggr|
+  \MISMATCH^{\max}_{φ} v &= \max_{(s,a) \in {\ALPHABET S} × \ALPHABET A}
+  \biggl| c(s,a) + γ \sum_{s' \in \ALPHABET S}P(s'|s,a) v(s') \biggr] \\
+  &\hskip 4em - \hat c(φ(s), a)  - γ \sum_{\hat s' \in \hat {\ALPHABET S}} \hat P(\hat s' | φ(s), a) \sum_{s' \in φ^{-1}(\hat s')} ν(s') v(s') \biggr|
   \end{align*}
 
 * Functionals $\hat \MISMATCH^{\hat π}_{φ}, \hat \MISMATCH^*_{φ} \colon [\hat {\BELLMAN} \to \reals] \to \reals$ defined as follows:
@@ -614,10 +613,10 @@ The Bellman mismatch functionals can be used to bound the performance difference
 #### Policy error
 
 For any (possibly randomized) policy $π$ in $\ALPHABET M$ and $\hat π$ in $\hat {\ALPHABET M}$, we have
-\begin{align*}
-  \NORM{V^π \SQ φ - \hat V^{π \SQ φ}}_{∞} &\le \frac{1}{1-γ} \MISMATCH^{π}_{φ} V^{π}, \\
-  \NORM{V^{\hat π \circ φ} - \hat V^{\hat π} \circ φ}_{∞} &\le \frac{1}{1-γ} \MISMATCH^{\hat π}_{φ} \hat V^{\hat π}.
-\end{align*}
+$$
+  \NORM{V^{\hat π \circ φ} - \hat V^{\hat π} \circ φ}_{∞} \le 
+\frac{1}{1-γ}\min\bigl\{ \MISMATCH^{π}_{φ} V^{π}, \MISMATCH^{\hat π}_{φ} \hat V^{\hat π} \bigr\}.
+$$
 :::
 
 :::{.callout-note collapse="true"}
@@ -625,26 +624,26 @@ For any (possibly randomized) policy $π$ in $\ALPHABET M$ and $\hat π$ in $\ha
 
 The proof is similar to the proof of @prp-policy-error. The first bound is obtained as follows:
 \begin{align}
-  \| V^{π} \SQ φ - \hat V^{π \SQ φ} \|_∞ 
+  \| V^{π} - \hat V^{π \SQ φ} \circ φ \|_∞ 
   &=
-  \| (\BELLMAN^π V^π) \SQ φ - \hat {\ALPHABET  B}^{π \SQ φ} \hat V^{π \SQ φ} \|_∞ 
+  \| \BELLMAN^π V^π - (\hat {\ALPHABET  B}^{π \SQ φ} \hat V^{π \SQ φ}) \circ φ \|_∞ 
   \notag \\
   &\le
-  \| (\BELLMAN^π V^π) \SQ φ - \hat {\ALPHABET  B}^{π\SQ φ} (V^{π} \SQ φ) \|_∞ 
+  \| \BELLMAN^π V^π - (\hat {\ALPHABET  B}^{π\SQ φ} (V^{π} \SQ φ)) \circ φ \|_∞ 
   \notag \\
   & \quad + 
-  \| \hat {\BELLMAN}^{π\SQ φ} (V^π \SQ φ) - \hat {\ALPHABET  B}^{π \SQ φ} \hat V^{π\SQ φ} \|_∞ 
+  \| (\hat {\BELLMAN}^{π\SQ φ} (V^π \SQ φ)) \circ φ - (\hat {\ALPHABET  B}^{π \SQ φ} \hat V^{π\SQ φ}) \circ φ \|_∞ 
   \notag \\
   &\le
   \MISMATCH^π_{φ} V^π + γ \| V^π \SQ φ - \hat V^π \|_∞
   \label{eq:ineq-3-abstract}
 \end{align}
 where the first inequality follows from the triangle inequality, and the
-second inequality follows from the definition of the Bellman mismatch functional
-and the contraction property of Bellman operators. Rearranging terms
+second inequality follows from the definition of the Bellman mismatch functional,
+the contraction property of Bellman operators, and the fact that $\NORM{f_1 \circ φ - f_2 \circ φ}_{∞} \le \NORM{f_1 - f_2}_{∞}$. Rearranging terms
 in \\eqref{eq:ineq-3-abstract} gives us
 \begin{equation}
-\| V^{π} \SQ φ - \hat V^{π} \|_∞ \le \frac{ \MISMATCH^π_{φ} V^{π}}{1 - γ}.
+\| V^{π} - \hat V^{π} \circ φ \|_∞ \le \frac{ \MISMATCH^π_{φ} V^{π}}{1 - γ}.
 \label{eq:ineq-4-abstract}\end{equation}
 This gives the first bound.
 
@@ -683,10 +682,10 @@ Similar to the above, we can also bound the difference between the optimal value
 #### Value error
 
   Let $V^*$ and $\hat V^*$ denote the optimal value functions for $\ALPHABET M$ and $\hat {\ALPHABET M}$ respectively. Then,
-  \begin{align*}
-  \NORM{V^* \SQ φ - \hat V^*}_{∞} &\le \frac{1}{1-γ} \MISMATCH^*_{φ} V^* \\
-  \NORM{V^* - \hat V^* \circ φ}_{∞} &\le \frac{1}{1-γ} \hat \MISMATCH^*_{φ} \hat V^* 
-  \end{align*}
+  $$
+  \NORM{V^* - \hat V^* \circ φ}_{∞} \le 
+  \frac{1}{1-γ} \min\bigl\{ \MISMATCH^*_{φ} V^*, \hat \MISMATCH^*_{φ} \hat V^* \bigr\}.
+  $$
 :::
 
 :::{.callout-note collapse="true"} 
@@ -695,25 +694,25 @@ Similar to the above, we can also bound the difference between the optimal value
 The proof argument is similar to the proof of @prp-value-error. 
 The first bound is obtained as follows:
 \begin{align}
-  \| V^{*} \SQ φ - \hat V^{*} \|_∞ 
+  \| V^{*} - \hat V^{*} \circ \|_∞ 
   &=
-  \| (\BELLMAN^* V^*) \SQ φ - \hat {\BELLMAN}^* \hat V^* \|_∞ 
+  \| \BELLMAN^* V^*  - (\hat {\BELLMAN}^* \hat V^*) \circ φ \|_∞ 
   \notag \\
   &\le
-  \| (\BELLMAN^* V^*) \SQ φ - \hat {\BELLMAN}^*(V^* \SQ φ)  \|_∞ 
+  \| \BELLMAN^* V^*  - \hat {\BELLMAN}^*(V^* \SQ φ) \circ φ  \|_∞ 
   + 
-  \| \hat {\BELLMAN}^*(V^* \SQ φ) - \hat {\BELLMAN}^* \hat V^* \|_∞ 
+  \| \hat {\BELLMAN}^*(V^* \SQ φ) \circ φ - \hat {\BELLMAN}^* \hat V^* \circ φ\|_∞ 
   \notag \\
   &\le
   \MISMATCH^*_{φ} V^* + γ \| V^* \SQ φ - \hat V^* \|_∞
   \label{eq:ineq-1-abstract}
 \end{align}
 where the first inequality follows from the triangle inequality, and the
-second inequality follows from the definition of the Bellman mismatch functional
-and the contraction property of Bellman operators. Rearranging terms
+second inequality follows from the definition of the Bellman mismatch functional,
+the contraction property of Bellman operators, and the fact that $\NORM{ f_1 \circ φ - f_2 \circ φ}_{∞} \le \NORM{f_1 - f_2}_{∞}$. Rearranging terms
 in \\eqref{eq:ineq-1-abstract} gives us
 \begin{equation}
-\| V^* \SQ φ - \hat V^* \|_∞ \le \frac{  \MISMATCH^*_{φ} V^*}{1 - γ}.
+\| V^*  - \hat V^* \circ φ\|_∞ \le \frac{  \MISMATCH^*_{φ} V^*}{1 - γ}.
 \label{eq:ineq-2-abstract}\end{equation}
 This gives the first bound.
 
@@ -770,6 +769,73 @@ $$
     α \le \frac{2}{(1-γ)}  \MISMATCH^{\max}_{φ}  \hat V^*. 
 $$
 :::
+
+Similar to @thm-model-error-V-star, we now provide such a bound that depends on $V^*$ rather than $\hat V^*$.
+
+:::{#thm-model-error-V-star-abstract}
+#### Model approximation error
+
+The policy $\hat π^*$ is an $α$-optimal policy of $\ALPHABET M$ where
+$$
+    α := \| V^* - V^{\hat π^* \circ φ} \|_∞ \le
+    \frac{1}{1-γ} \MISMATCH^{\hat π^*}_{φ} V^*
+    + 
+    \frac{(1+γ)}{(1-γ)^2} \MISMATCH^*_{φ} V^* .
+$$
+
+Moreover, since $\MISMATCH^{\max}_{φ} V^*$ is an upper bound for
+both $\MISMATCH^{\hat π^*}_{φ} V^*$ and $\MISMATCH^*_{φ} V^*$, we have
+$$
+    α \le \frac{2}{(1-γ)^2}  \MISMATCH^{\max}_{φ}  V^*. 
+$$
+:::
+
+:::{.callout-note collapse="true"}
+#### Proof {-}
+We bound the first term of \eqref{eq:triangle-1} by @prp-value-error-abstract
+But instead of bounding the second term of \eqref{eq:triangle-1} by
+@prp-policy-error-abstract, we consider the following:
+\begin{align}
+  \| V^{\hat π^* \circ φ} - \hat V^{\hat π^*} \circ φ \|_∞ 
+  &= 
+  \| V^{\hat π^*  \circ φ} - \hat V^{*} \circ φ \|_∞ 
+  = \| \BELLMAN^{\hat π^* \circ φ} V^{\hat π^* \circ φ} - 
+       (\hat {\BELLMAN}^{\hat π^*} \hat V^{*}) \circ φ \|_∞ 
+  \notag \\
+  &\le \| \BELLMAN^{\hat π^* \circ φ} V^{\hat π^* \circ φ} - 
+          \BELLMAN^{\hat π^* \circ φ} V^{*} \|_∞
+    +  \| \BELLMAN^{\hat π^* \circ φ} V^{*} -
+       (\hat {\BELLMAN}^{\hat π^*} (V^{*} \SQ φ)) \circ φ \|_∞ 
+  \notag \\
+  & \quad + 
+       \| (\hat {\BELLMAN}^{\hat π^*} (V^{*} \SQ φ)) \circ φ - 
+       (\hat {\BELLMAN}^{\hat π^*} \hat V^{*}) \circ φ \|_∞ 
+  \notag \\
+  &\le γ \| V^* - V^{\hat π^*} \|_∞ + \MISMATCH^{\hat π^* \circ φ}_{φ} V^* 
+  + γ \| V^* - \hat V^* \|_∞
+  \label{eq:ineq-21-abstract}.
+\end{align}
+where the first inequality follows from the triangle inequality and the second
+inequality follows from the definition of Bellman mismatch functional,
+contraction property of Bellman operator, and the fact that $\NORM{f_1 \circ φ - f_2 \circ φ}_{∞} \le \NORM{f_1 - f_2}_{∞}$. 
+
+Substituting \eqref{eq:ineq-21-abstract} in \eqref{eq:triangle-1} and rearranging
+terms, we get
+\begin{align}
+  \| V^* - V^{\hat π^* \circ φ} \|_∞ 
+  &\le
+  \frac{1}{1-γ} \MISMATCH^{\hat π^* \circ φ}_{φ} V^*
+  + 
+  \frac{1+γ}{1-γ} \| V^* - \hat V^* \|_∞
+  \notag \\
+  &\le
+  \frac{1}{1-γ} \MISMATCH^{\hat π^* \circ φ}_{φ} V^*
+  + 
+  \frac{(1+γ)}{(1-γ)^2} \MISMATCH^*_{φ} V^* .
+\end{align}
+where the second inequality follows from @prp-value-error-abstract.
+:::
+
 
 ## Notes {-}
 
