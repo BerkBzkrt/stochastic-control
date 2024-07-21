@@ -694,7 +694,7 @@ Similar to the above, we can also bound the difference between the optimal value
 The proof argument is similar to the proof of @prp-value-error. 
 The first bound is obtained as follows:
 \begin{align}
-  \| V^{*} - \hat V^{*} \circ \|_∞ 
+  \| V^{*} - \hat V^{*} \circ φ \|_∞ 
   &=
   \| \BELLMAN^* V^*  - (\hat {\BELLMAN}^* \hat V^*) \circ φ \|_∞ 
   \notag \\
@@ -758,7 +758,7 @@ Recall that we can split the model error using triangle inequality as in \eqref{
 
 The policy $\hat π^*$ is an $α$-optimal policy of $\ALPHABET M$ where
 $$
-    α := \| V^* - V^{\hat π^* \circ} \|_∞ \le
+    α := \| V^* - V^{\hat π^* \circ φ} \|_∞ \le
     \frac{1}{1-γ} \bigl[ \MISMATCH^*_{φ} \hat V^* + \MISMATCH^{\hat
     π^*}_{φ} \hat V^* \bigr]. 
 $$
