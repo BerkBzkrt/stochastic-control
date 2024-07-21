@@ -686,7 +686,7 @@ second inequality follows from the definition of the Bellman mismatch functional
 and the contraction property of Bellman operators. Rearranging terms
 in \\eqref{eq:ineq-1-abstract} gives us
 \begin{equation}
-\| V^* \SQ - \hat V^* \|_∞ \le \frac{  \MISMATCH^*_{φ} V^*}{1 - γ}.
+\| V^* \SQ φ - \hat V^* \|_∞ \le \frac{  \MISMATCH^*_{φ} V^*}{1 - γ}.
 \label{eq:ineq-2-abstract}\end{equation}
 This gives the first bound.
 
