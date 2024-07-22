@@ -544,9 +544,46 @@ $$
 $$
 In the sequel, we assume that the measure $ν$ is fixed and do not carry it in the notation. Given $ν$, and a function $f$ defined on $\ALPHABET S$, define
 $$ \def\SQ{\mathbin{\square}}
-  (f \SQ φ)(\hat s) = \sum_{s \in φ^{-1}(s)} f(s) ν(s),
+  (f \SQ φ)(\hat s) = \sum_{s \in φ^{-1}(\hat s)} f(s) ν(s),
   \quad \forall \hat s \in \hat {\ALPHABET S}.
 $$
+The lift and projection operators satisfy the following properties:
+
+:::{#lem-lift-and-project}
+1. For any functions $\hat f_1, \hat f_2 \colon \hat {\ALPHABET S} \to \reals$,
+   $$ \NORM{ \hat f_1 \circ φ - \hat f_2 \circ φ }_{∞} \le 
+    \NORM{ \hat f_1 - \hat f_2 }_{∞}. $$
+
+2. For any function $f \colon \ALPHABET S \to \reals$ and $\hat f \colon \hat {\ALPHABET S} \to \reals$, we have
+   $$ \NORM{ f \SQ φ - \hat f }_{∞} \le \NORM{ f - \hat f \circ φ}_{∞}. $$
+:::
+
+:::{.callout-note collapse="true"}
+#### Proof
+
+The first property is an immediate consequence of the definition of the sup-norm.
+
+For the second property, observe that
+\begin{align*}
+   \NORM{ f \SQ φ - \hat f }_{∞} 
+   &= \sup_{\hat s \in \hat {\ALPHABET S}}
+   \bigg| \sum_{s \in φ^{-1}(\hat s)} ν(s) f(s) - \hat f(\hat s) \biggr|
+   \notag \\
+   &= \sup_{\hat s \in \hat {\ALPHABET S}}
+   \bigg| \sum_{s \in φ^{-1}(\hat s)} ν(s) \bigl[ f(s) - \hat f(\hat s) \bigr] \biggr|
+   \notag \\
+   &\le \sup_{\hat s \in \hat {\ALPHABET S}}
+   \sum_{s \in φ^{-1}(\hat s)} ν(s) \bigl| f(s) - \hat f(\hat s) \bigr|
+   \notag \\
+   &\le \sup_{\hat s \in \hat {\ALPHABET S}}
+   \sum_{s \in φ^{-1}(\hat s)} ν(s) \NORM{ f - \hat f \circ φ }_{∞}
+   \notag \\
+   &
+   = \NORM{ f - \hat f \circ φ}_{∞}
+\end{align*}
+where the first inequality follows from triangle inequality and the second follows from the definition of the sup-norm.
+
+:::
 
 As before, let $V^*$ and $\hat V^*$ denote the optimal value functions of the true model $\ALPHABET M$ and the approximate model $\hat {\ALPHABET M}$, respectively. Moreover, let $π^*$ and $\hat π^*$ be optimal policies for the true model and the approximate model $\widehat {\ALPHABET M}$, respectively.
 
@@ -636,11 +673,14 @@ The proof is similar to the proof of @prp-policy-error. The first bound is obtai
   \notag \\
   &\le
   \MISMATCH^{\hat π \circ φ}_{φ} V^{\hat π \circ φ} + γ \| V^{\hat π \circ φ} \SQ φ - \hat V^{\hat π} \|_∞
+  \notag \\
+  &\le
+  \MISMATCH^{\hat π \circ φ}_{φ} V^{\hat π \circ φ} + γ \| V^{\hat π \circ φ} - \hat V^{\hat π} \circ φ \|_∞
   \label{eq:ineq-3-abstract}
 \end{align}
 where the first inequality follows from the triangle inequality, and the
 second inequality follows from the definition of the Bellman mismatch functional,
-the contraction property of Bellman operators, and the fact that $\NORM{f_1 \circ φ - f_2 \circ φ}_{∞} \le \NORM{f_1 - f_2}_{∞}$. Rearranging terms
+the contraction property of Bellman operators, and @lem-lift-and-project, and the last inequality also follows from @lem-lift-and-project. Rearranging terms
 in \\eqref{eq:ineq-3-abstract} gives us
 \begin{equation}
 \| V^{\hat π \circ φ} - \hat V^{\hat π} \circ φ \|_∞ \le \frac{ \MISMATCH^{\hat π \circ φ}_{φ} V^{\hat π \circ φ}}{1 - γ}.
@@ -658,7 +698,7 @@ The second bound is obtained as follows
    - \BELLMAN^{\hat π \circ φ}(\hat V^{\hat π} \circ φ) \|_{∞}
   \notag \\
   & \quad + 
-  \| \BELLMAN^{\hat π \circ φ}(\hat V^{\hat π} \circ φ) \|_{∞}
+  \| \BELLMAN^{\hat π \circ φ}(\hat V^{\hat π} \circ φ) 
   - (\hat {\ALPHABET  B}^{\hat π} \hat V^{\hat π}) \circ φ \|_∞ 
   \notag \\
   &\le
@@ -705,11 +745,14 @@ The first bound is obtained as follows:
   \notag \\
   &\le
   \MISMATCH^*_{φ} V^* + γ \| V^* \SQ φ - \hat V^* \|_∞
+  \notag \\
+  &\le
+  \MISMATCH^*_{φ} V^* + γ \| V^* - \hat V^* \circ φ \|_∞
   \label{eq:ineq-1-abstract}
 \end{align}
 where the first inequality follows from the triangle inequality, and the
 second inequality follows from the definition of the Bellman mismatch functional,
-the contraction property of Bellman operators, and the fact that $\NORM{ f_1 \circ φ - f_2 \circ φ}_{∞} \le \NORM{f_1 - f_2}_{∞}$. Rearranging terms
+the contraction property of Bellman operators, and @lem-lift-and-project, and the last inequality follows from @lem-lift-and-project as well. Rearranging terms
 in \\eqref{eq:ineq-1-abstract} gives us
 \begin{equation}
 \| V^*  - \hat V^* \circ φ\|_∞ \le \frac{  \MISMATCH^*_{φ} V^*}{1 - γ}.
@@ -736,7 +779,7 @@ and $\hat V^*$.
 \end{align}
 Rearranging terms in \\eqref{eq:ineq-11-abstract} gives us
 \begin{equation}
-\| V^{*} - \hat V^{*} \|_∞ \le \frac{ \hat \MISMATCH^*_{φ} \hat V^{*}}{1 - γ}.
+\| V^{*} - \hat V^{*} \circ φ \|_∞ \le \frac{ \hat \MISMATCH^*_{φ} \hat V^{*}}{1 - γ}.
 \label{eq:ineq-12-abstract}\end{equation}
 This gives the second bound.
 :::
@@ -811,13 +854,16 @@ But instead of bounding the second term of \eqref{eq:triangle-1} by
        \| (\hat {\BELLMAN}^{\hat π^*} (V^{*} \SQ φ)) \circ φ - 
        (\hat {\BELLMAN}^{\hat π^*} \hat V^{*}) \circ φ \|_∞ 
   \notag \\
-  &\le γ \| V^* - V^{\hat π^*} \|_∞ + \MISMATCH^{\hat π^* \circ φ}_{φ} V^* 
-  + γ \| V^* - \hat V^* \|_∞
+  &\le γ \| V^* - V^{\hat π^* \circ φ} \|_∞ + \MISMATCH^{\hat π^* \circ φ}_{φ} V^* 
+  + γ \| V^* \SQ φ - \hat V^* \|_∞
+  \notag \\
+  &\le γ \| V^* - V^{\hat π^* \circ φ} \|_∞ + \MISMATCH^{\hat π^* \circ φ}_{φ} V^* 
+  + γ \| V^*  - \hat V^* \circ φ \|_∞
   \label{eq:ineq-21-abstract}.
 \end{align}
 where the first inequality follows from the triangle inequality and the second
 inequality follows from the definition of Bellman mismatch functional,
-contraction property of Bellman operator, and the fact that $\NORM{f_1 \circ φ - f_2 \circ φ}_{∞} \le \NORM{f_1 - f_2}_{∞}$. 
+contraction property of Bellman operator, and @lem-lift-and-project, and the last inequality follows from @lem-lift-and-project as well. 
 
 Substituting \eqref{eq:ineq-21-abstract} in \eqref{eq:triangle-1} and rearranging
 terms, we get
@@ -826,7 +872,7 @@ terms, we get
   &\le
   \frac{1}{1-γ} \MISMATCH^{\hat π^* \circ φ}_{φ} V^*
   + 
-  \frac{1+γ}{1-γ} \| V^* - \hat V^* \|_∞
+  \frac{1+γ}{1-γ} \| V^* - \hat V^* \circ φ \|_∞
   \notag \\
   &\le
   \frac{1}{1-γ} \MISMATCH^{\hat π^* \circ φ}_{φ} V^*
