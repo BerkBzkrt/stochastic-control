@@ -294,8 +294,8 @@ where the second inequality follows from @prp-value-error.
 
 :::{.callout-warning}
 ### Remark:
-Note that the bound of @thm-model-error-V-star is tighter by a factor of $1/(1-γ)$ but that bound is in terms of $\hat V^*$. In some settings, 
-a bound in terms of $V^*$ is more desirable. Using @thm-model-error-hat-V-star in such settings leads to scaling by $1/(1-γ)$. 
+Note that the bound of @thm-model-error-hat-V-star is tighter by a factor of $1/(1-γ)$ but that bound is in terms of $\hat V^*$. In some settings, 
+a bound in terms of $V^*$ is more desirable. Using @thm-model-error-V-star in such settings leads to scaling by $1/(1-γ)$. 
 :::
 
 ::: {.callout-important #bound-comparison}
