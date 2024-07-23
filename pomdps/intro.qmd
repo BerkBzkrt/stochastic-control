@@ -707,6 +707,6 @@ systems. @KumarVaraiya1986 define an information state as a compression of
 past history which satisfies property (P2a) but do not formally show that
 such an information state always leads to a dynamic programming decomposition.
 
-@exr-info-state-irrelevant is due to @Feinberg2005. As explained in @Feinberg2005, such models arise in control of queues and transformation of continuous time MDPs to discrete time MDPs using uniformization. It may also be considered an instance of what is called the _noisy TV problem_ in the RL literature [@Burda2018]. 
+@exr-info-state-irrelevant is due to @Feinberg2005. As explained in @Feinberg2005, such models arise in control of queues and transformation of continuous time MDPs to discrete time MDPs using uniformization. It may also be considered an instance of what is called the _noisy TV problem_ in the RL literature [@Burda2019]. 
 
 @exr-info-state-folded is due to @Chakravorty2018. @exr-info-state-delayed is due to @Altman1992. @exr-info-state-delayed-observation is due to @Bander1999. @exr-info-state-machine-repair is an instance of incrementally expanding representations for POMDPs presented in @Arabneydi2015.
