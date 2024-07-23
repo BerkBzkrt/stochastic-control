@@ -539,9 +539,9 @@ In the analysis above, we assumed that the model $\ALPHABET M$ and the approxima
 In addition, suppose we are given a surjective function $φ \colon \ALPHABET S \to \hat {\ALPHABET S}$. We can use $φ$ to **lift** any function $\hat f$ defined on $\hat {\ALPHABET S}$ to a function defined on $\ALPHABET S$ given by $f = \hat f \circ φ$, i.e.,
 $$f(s) = \hat f(φ(s)), \quad \forall s \in \ALPHABET  S.$$ 
 We can also use $φ$ to **project** any function $f$ defined on $\ALPHABET S$ to a function defined on $\hat {\ALPHABET S}$. For this, we assume that we are given a measure $ν$ on $\ALPHABET S$ that has the following property:
-$$
+\begin{equation}\label{eq:nu}
   ν(φ^{-1}(\hat s)) = 1, \quad \forall \hat s \in \hat {\ALPHABET S}.
-$$
+\end{equation}
 In the sequel, we assume that the measure $ν$ is fixed and do not carry it in the notation. Given $ν$, and a function $f$ defined on $\ALPHABET S$, define
 $$ \def\SQ{\mathbin{\square}}
   (f \SQ φ)(\hat s) = \sum_{s \in φ^{-1}(\hat s)} f(s) ν(s),
@@ -882,6 +882,87 @@ terms, we get
 where the second inequality follows from @prp-value-error-abstract.
 :::
 
+## IPM based bounds for state abstraction
+
+The high-level idea for the IPM based bounds remains the same as before: we provide an upper bound on $\MISMATCH^{\max}_{φ}$ and $\hat \MISMATCH^{\max}_{φ}$ based on an appropriate notion of "distance" between $(P,c)$ and $(\hat P, \hat c)$. 
+
+Given two models $\ALPHABET M = (\ALPHABET S, \ALPHABET A, P, c)$ and $\hat {\ALPHABET M} = (\hat {\ALPHABET S}, \ALPHABET A, \hat P, \hat c)$, an abstraction function $φ \colon \ALPHABET S \to \hat {\ALPHABET S}$, and a measure $ν$ on $\ALPHABET S$ that satisfies \eqref{eq:nu}, we define the following distances between the two models:
+
+1. Cost difference $$ε_{φ} \coloneqq \sup_{(s,a) \in \ALPHABET S × \ALPHABET A} \ABS{ c(s,a) - \hat c(φ(s),a) }.$$
+2. Dynamics distance in $\ALPHABET S$: 
+   $$δ_{φ} \coloneqq \sup_{(s,a) \in \ALPHABET S × \ALPHABET A} 
+   d_{\F}(P(\cdot | s,a), \hat P_{φ}( \cdot | φ(s), a)),$$
+   where $\hat P_{φ}(s' | \hat s, a) = \hat P(φ(s') | \hat s, a).$
+3. Dynamics distance in $\hat {\ALPHABET S}$: 
+   $$\hat δ_{φ} \coloneqq \sup_{(s,a) \in \ALPHABET S × \ALPHABET A} 
+   d_{\F}(P_{φ}(\cdot | s,a), \hat P( \cdot | φ(s), a)),$$
+   where $P_{φ}(\hat s' | s, a) = P(φ^{-1}(\hat s') | s, a).$
+
+An immediate implication of the above definition is the following.
+
+::: {#lem-IPM-bound-on-mismatch-abstract}
+1. For any $v \colon \ALPHABET S \to \reals$
+$$
+  \MISMATCH^{\max}_{φ} v \le ε + γ δ_{φ} \, ρ_{\F}(v).
+$$
+2. For any $\hat v \colon \hat {\ALPHABET S} \to \reals$
+$$
+  \hat \MISMATCH^{\max}_{φ} \hat v \le ε + γ \hat δ_{φ} \, ρ_{\F}(\hat v).
+$$
+:::
+
+::: {.callout-note collapse="true"}
+#### Proof
+From the definition of maximum Bellman mismatch, we have
+\begin{align*}
+  \MISMATCH^{\max} v &= 
+  \max_{(s,a) \in \ALPHABET S, A} \biggl\lvert
+    c(s,a) + γ \sum_{s' \in \ALPHABET S} P(s'|s,a)v(s') 
+   -\hat c(s,a) - γ \sum_{s' \in \ALPHABET S} \hat P(s'|s,a) v(s')
+   \biggr\rvert
+  \\
+  &\stackrel{(a)}\le
+  \max_{(s,a) \in \ALPHABET S, A} 
+  \bigg\{
+  \bigl\lvert c(s,a) - \hat c(s,a) \bigr\rvert
+  + 
+  γ \biggl\lvert 
+  \sum_{s' \in \ALPHABET S} P(s' | s,a) v(s')
+  -
+  \sum_{s' \in \ALPHABET S} \hat P(s' | s,a) v(s')
+  \biggr|
+  \biggr\}
+  \\
+  &\stackrel{(b)}\le
+  \max_{(s,a) \in \ALPHABET S, A} \Bigl\{
+  \bigl\lvert c(s,a) - \hat c(s,a) \bigr\rvert
+  + γ ρ_{\F}(v)
+  d_{\F}(P(\cdot | s,a), \hat P(\cdot | s,a) )
+  \Bigr\}
+  \notag \\
+  &\stackrel{(c)}\le ε + γ δ ρ_{\F}(v)
+\end{align*}
+where $(a)$ follows from triangle inequality, $(b)$ follows from \eqref{eq:IPM-ineq} and $(c)$ follows from the definition of $(ε,δ)$.
+:::
+
+An immediate consequence of @lem-IPM-bound-on-mismatch-abstract when combined with @thm-model-error-V-star-abstract and @thm-model-error-hat-V-star-abstract is the following.
+
+:::{#thm-model-error-IPM}
+#### Model approximation error
+In the setup of this section, we have
+$$
+    α := \| V^* - V^{\hat π^* \circ φ} \|_∞ \le
+    \frac{2}{1-γ} \bigl[ ε_{φ} + γ \hat δ_{φ} ρ_{\F}(\hat V^*)\bigr]. 
+$$
+Another upper bound on $α$ is
+$$
+    α  \le
+    \frac{2}{(1-γ)^2} \bigl[ ε_{φ} + γ δ_{φ} ρ_{\F}(V^*)\bigr]. 
+$$
+:::
+
+Note that the above bounds require the knowledge of $\hat V^*$. As in @cor-model-error-instance-independent, we can obtain instance independent bounds by upper bounding $ρ_{\F}(\hat V^*)$ and $ρ_{\F}(V^*)$. 
+
 
 ## Notes {-}
 
@@ -889,4 +970,4 @@ The material in this section is adapted from @Bozkurt2023, where the results wer
 
 The approximation bound for the [inventory management example](#example-inventory) is from @Muller1997a. The approximation bound for [certainty equivalence](#example-certainty-equivalence) is from @Bozkurt2023.
 
-The earliest work on state abstraction is due to @Whitt1978, @Whitt1979. Generalizations similar to the ones in @sec-state-abstraction are also presented in @Gelada2019 and @Saldi2018.
+The earliest work on state abstraction is due to @Whitt1978, @Whitt1979. Generalizations similar to the ones in @sec-state-abstraction are also presented in @Gelada2019 and @Saldi2018. The proofs here are adapted from @Sinha2024. 
