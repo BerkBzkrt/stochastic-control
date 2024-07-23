@@ -22,18 +22,19 @@
   publisher = {Institute of Electrical and Electronics Engineers ({IEEE})},
 }
 
-@Misc{Agarwal2019,
-  author      = {Alekh Agarwal and Sham M. Kakade and Jason D. Lee and Gaurav Mahajan},
-  title       = {Optimality and Approximation with Policy Gradient Methods in Markov Decision Processes},
-  year        = {2019},
-  abstract    = {Policy gradient methods are among the most effective methods in challenging reinforcement learning problems with large state and/or action spaces. However, little is known about even their most basic theoretical convergence properties, including: if and how fast they converge to a globally optimal solution (say with a sufficiently rich policy class); how they cope with approximation error due to using a restricted class of parametric policies; or their finite sample behavior. Such characterizations are important not only to compare these methods to their approximate value function counterparts (where such issues are relatively well understood, at least in the worst case), but also to help with more principled approaches to algorithm design. This work provides provable characterizations of computational, approximation, and sample size issues with regards to policy gradient methods in the context of discounted Markov Decision Processes (MDPs). We focus on both: 1) "tabular" policy parameterizations, where the optimal policy is contained in the class and where we show global convergence to the optimal policy, and 2) restricted policy classes, which may not contain the optimal policy and where we provide agnostic learning results. One insight of this work is in formalizing the importance how a favorable initial state distribution provides a means to circumvent worst-case exploration issues. Overall, these results place policy gradient methods under a solid theoretical footing, analogous to the global convergence guarantees of iterative value function based algorithms.},
-  date        = {2019-08-01},
-  eprint      = {1908.00261v2},
-  eprintclass = {cs.LG},
-  eprinttype  = {arXiv},
-  file        = {:http\://arxiv.org/pdf/1908.00261v2:PDF},
-  keywords    = {cs.LG, stat.ML},
-  url         = {http://arxiv.org/pdf/1908.00261v2},
+@InProceedings{Agarwal2020,
+  author    = {Agarwal, Alekh and Kakade, Sham M and Lee, Jason D and Mahajan, Gaurav},
+  title     = {Optimality and Approximation with Policy Gradient Methods in Markov Decision Processes},
+  booktitle = {Proceedings of Thirty Third Conference on Learning Theory},
+  year      = {2020},
+  editor    = {Abernethy, Jacob and Agarwal, Shivani},
+  volume    = {125},
+  series    = {Proceedings of Machine Learning Research},
+  pages     = {64--66},
+  month     = {09--12 Jul},
+  publisher = {PMLR},
+  pdf       = {http://proceedings.mlr.press/v125/agarwal20a/agarwal20a.pdf},
+  url       = {https://proceedings.mlr.press/v125/agarwal20a.html},
 }
 
 @Article{Altman1992,
@@ -1619,19 +1620,6 @@
   pages   = {102-119},
 }
 
-@Misc{Kara2021,
-  author      = {Ali Devran Kara and Naci Saldi and Serdar Yüksel},
-  title       = {Q-Learning for MDPs with General Spaces: Convergence and Near Optimality via Quantization under Weak Continuity},
-  year        = {2021},
-  abstract    = {Reinforcement learning algorithms often require finiteness of state and action spaces in Markov decision processes (MDPs) and various efforts have been made in the literature towards the applicability of such algorithms for continuous state and action spaces. In this paper, we show that under very mild regularity conditions (in particular, involving only weak continuity of the transition kernel of an MDP), Q-learning for standard Borel MDPs via quantization of states and actions converge to a limit, and furthermore this limit satisfies an optimality equation which leads to near optimality with either explicit performance bounds or which are guaranteed to be asymptotically optimal. Our approach builds on (i) viewing quantization as a measurement kernel and thus a quantized MDP as a POMDP, (ii) utilizing near optimality and convergence results of Q-learning for POMDPs, and (iii) finally, near-optimality of finite state model approximations for MDPs with weakly continuous kernels which we show to correspond to the fixed point of the constructed POMDP. Thus, our paper presents a very general convergence and approximation result for the applicability of Q-learning for continuous MDPs.},
-  date        = {2021-11-12},
-  eprint      = {2111.06781v1},
-  eprintclass = {cs.LG},
-  eprinttype  = {arXiv},
-  file        = {:http\://arxiv.org/pdf/2111.06781v1:PDF},
-  keywords    = {cs.LG, cs.SY, eess.SY},
-}
-
 @Article{Kara2022,
   author    = {Kara, Ali Devran and Yüksel, Serdar},
   title     = {Convergence of Finite Memory {Q} Learning for {POMDPs} and Near Optimality of Learned Policies Under Filter Stability},
@@ -1641,6 +1629,17 @@
   issn      = {1526-5471},
   doi       = {10.1287/moor.2022.1331},
   publisher = {INFORMS},
+}
+
+@Article{Kara2023,
+  author  = {Ali Kara and Naci Saldi and Serdar YÃ¼ksel},
+  title   = {Q-Learning for MDPs with General Spaces: Convergence and Near Optimality via Quantization under Weak Continuity},
+  journal = {Journal of Machine Learning Research},
+  year    = {2023},
+  volume  = {24},
+  number  = {199},
+  pages   = {1--34},
+  url     = {http://jmlr.org/papers/v24/21-1457.html},
 }
 
 @Article{Karatzas2010,
@@ -2644,6 +2643,12 @@
   month     = {sep},
   doi       = {10.1007/bf00993308},
   publisher = {Springer Science and Business Media {LLC}},
+}
+
+@Unpublished{Sinha2024,
+  author = {Amit Sinha and Aditya Mahajan},
+  title  = {On the sensitivity of restless bandit solutions to uncertainty in the model of the arms},
+  year   = {2024},
 }
 
 @Book{Skinner1938,
