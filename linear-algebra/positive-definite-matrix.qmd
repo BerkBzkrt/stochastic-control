@@ -99,7 +99,7 @@ $\MATRIX{ x_1 & x_2 } \MATRIX{ 0 & 0 \\ 0 & 2 } \MATRIX{ x_1 \\ x_2 }
 11. If $M \succ 0$ and $T$  are square matrices of the same size, then
    $$ TMT + M^{-1} \succeq 2T. $$
 
-## A useful relationship.
+## Schur Complement
 
 Symmetric block matrices of the form
 

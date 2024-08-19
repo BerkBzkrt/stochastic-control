@@ -59,7 +59,7 @@ The states of a time-homogeneous Markov chain can be classified as follows.
 
 3.  The states in a finite-state Markov chain can be partitioned into
     two sets: **recurrent states** and **transient states**. A state is
-    recurrent if it is accessible from all states that is accessible
+    recurrent if it is accessible from all states that are accessible
     from it (i.e., $i$ is recurrent if $i \rightsquigarrow j$ implies
     that $j \rightsquigarrow i$). States that are not recurrent are
     **transient**.

@@ -14,11 +14,11 @@ to be the product where successive terms multiply on the left.
 
 We say that an infinite product $\prod_{n=1}^\infty B_n$ of $p \times p$ matrices converges if there exists an integer $N$ such that
 $$
-    Q = \lim_{m \to \infty} \prod_{n=N}^m B_n 
+    Q_N = \lim_{m \to \infty} \prod_{n=N}^m B_n 
 $$
-exists. In this case, we define $\prod_{n=1}^\infty B_n = Q \prod_{n=1}^{N-1} B_n$. 
+exists. In this case, we define $\prod_{n=1}^\infty B_n = Q_N \prod_{n=1}^{N-1} B_n$. 
 
-Following @Trench1999, we say that the product $\prod_{n=1}^\infty B_n$ converges _invertibly_ if for all $n \ge N$, $B_n$ is invertible and the product $Q$ defined above is invertible as well.  It was argued in @Trench1999 that the above definition has the following consequences:
+Following @Trench1999, we say that the product $\prod_{n=1}^\infty B_n$ converges _invertibly_ if for all $n \ge N$, $B_n$ is invertible and the product $Q_N$ defined above is invertible as well.  It was argued in @Trench1999 that the above definition has the following consequences:
 
 - **(P1)** An invertibly convergent infinite product is singular if and only if at least one of its factors is singular.
 - **(P2)** If $\prod_{n=1}^\infty B_n$ converges invertibly then $\lim_{n \to \infty} B_n = I$.
