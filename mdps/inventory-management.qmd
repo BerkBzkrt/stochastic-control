@@ -471,7 +471,7 @@ $$ V^*_t(s) = \min_{a \in \reals_{\ge 0}} \bigl\{ p(s + a) + H_t(s + a)
 $$
 As usual, we prove the result by backward induction. For $t=T$, 
 $$H_T(z) = \EXP[ h(z - W) ] $$
-which is convex because $h(z)$ is convex. $f_T(z) = p z + Q^*_T(z)$ is the
+which is convex because $h(z)$ is convex. $f_T(z) = p z + H_T(z)$ is the
 sum of a linear function and convex function and is, therefore, convex. 
 Then, by fact 2 above,
 $$π^*_T(s) = \arg \min_{a \in \reals_{\ge 0}} f_T(s+a) = \max(σ_T - s, 0)
@@ -496,6 +496,77 @@ $$ π^*_t(s) = \max(σ_t - s, 0)$$
 and $V^*_t(s)$ is of the desired form and convex. 
 
 Thus, the result is holds by induction.
+:::
+
+## Variations of a theme: lost sales {#lost-sales}
+
+Consider a variation of the basic model where the excess demand is lost rather than backlogged. Thus, $\S = [0, ∞)$ and the stock evolves according to
+$$
+S_{t+1} = [S_t + A_t - W_t]^{+} 
+$$
+where $[x]^{+} \coloneqq \max\{x, 0\}$. There is still a negative per-step cost associated with excess demand. Thus, the per-step cost is
+$$
+p A_t + h(S_t + A_t - W_t).
+$$
+
+We will write the DP slightly differently (in terms of the function $f_t$ rather than $H_t$). Define
+$$ V^*_{T+1}(s) = 0$$
+and for $t \in \{T, \dots, 1\}$, 
+$$
+  f_t(z) = pz + \EXP[c_h [z-W]^{+} - c_s [z-W]^{-} + V^*_{t+1}([z - W]^{+})]
+$$
+where $[x]^{-} = \min\{0, x\}$
+and
+$$ \begin{align*}
+  V^*_t(s) &= \min_{a \ge 0} \bigl\{  f_t(s+a) \bigr\} - ps , \\
+  π^*_t(s) &= \arg \min_{a \ge 0} \bigl\{ f_t(s+a) \bigr\}.
+\end{align*} $$
+
+
+:::{#thm-inventory-lost-sales}
+Assume that $p < c_s$. Define 
+$$ σ_t = \arg \min_{z \in \reals} \bigl\{ f_t(z) \bigr\} . $$
+Then,  $σ_t \ge 0$, 
+\begin{equation} \label{eq:V-lost}
+V^*_t(s) = \begin{cases}
+  f_t(σ_t) - ps , &\text{if } s \le σ_t \\
+  f_t(s) - p s   , & \text{otherwise }
+\end{cases} 
+\end{equation}
+and
+\begin{equation}\label{eq:pi-lost}
+  π^*_t(s) = \begin{cases}
+  σ_t - s, &\text{if } s \le σ_t \\
+  0, & \text{otherwise }
+\end{cases}\end{equation}
+
+:::
+
+Note that we cannot follow the same proof argument as before because for a convex function $\EXP[f([s-W]^{+})]$ is not necessarily convex. So we cannot show that $H_t(z)$ is convex. So, we need a slightly different proof argument.
+
+::: {.callout-note collapse="true"}
+#### Proof 
+We will show the following fact.
+
+**Fact.** If $f_{t+1}$ is convex, then $V^*_{t+1}, π^*_{t+1}$ is of the specified form and 
+$$g_t(z) = V^*_{t+1}([z]^{+}) - c_s [z]^{-}$$ 
+is convex.
+
+**Implication of fact.** Convexity of $g_t$ implies that
+$g_t(z) + c_h [z]^{+}$ is convex (since it is sum of two convex functions). Hence, $f_t(z)$ is convex (since it is sum of a linear function and weighted average of convex functions). This implies the result holds by induction.
+
+**Proof of fact.** The fact that convexity of $f_{t+1}$ implies the structure of $V^*_{t+1}$ and $π^*_{t+1}$ follows from the same argument as @thm-inventory-structure. Then, by definition of $g_t$, we have
+$$
+g_t(z) = \begin{cases}
+f_{t+1}(σ_{t+1}) - c_s z, & \hbox{if } 0 < z \\
+f_{t+1}(σ_{t+1}) - p z,   & \hbox{if } 0 \le z < σ_{t+1} \\
+f_{t+1}(z) - p z,   & \hbox{if } σ_{t+1} \le z 
+\end{cases}
+$$
+In the range $(-∞, 0)$ the function is linear and has slope $-c_s$; in the range $[0, σ_{t+1})$ the function is linear and has slope $-p$; in the range $[σ_{t+1}, ∞)$, the function is convex and increasing and has a slope greater than $-p$. Hence, the slope of $g_t$ is increasing from $(-∞,∞)$ and hence the function is convex.
+
+The above argument also shows that the slope of $g_t(z)$ (and therefore $g_t(z) + c_h [z]^{+}$ is $-c_s$ in $(-∞,0)$. Hence, the slope of $f_t(z)$ is strictly negative in $(-∞, 0)$. Thus, $σ_t \not\in (-∞,0)$. 
+
 :::
 
 ## Variations of a theme: positive ordering cost {#positive-ordering-cost}
