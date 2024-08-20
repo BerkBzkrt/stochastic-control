@@ -176,7 +176,8 @@ A = 0:2L+1
 W = 0:n
 
 T = 15
-ojs_define(T=T)
+xmin, xmax = -50, 50
+ojs_define(T=T, xmin=xmin, xmax=xmax)
 
 function generate_binomial_demand(n,q,ch,cs,p,T,K)
   Pw = Binomial(n,q)
@@ -221,7 +222,7 @@ Cs = range(start=0.5, step=0.5, stop=5.0)
 
 for cs in Cs
   (S,V,π) = generate_binomial_demand(n,q,ch,cs,p,T,0)
-  for t in 1:T, s in S
+  for t in 1:T, s in xmin:xmax
     push!(df, (t, s, V[t][s], π[t][s],cs))
   end
 end
@@ -244,7 +245,7 @@ viewof cs_val = Object.assign(Inputs.range([0.5, 5], {label: "cs", step: 0.5, va
 valuePlot = Plot.plot({
   grid: true,
   y: { domain: [0, 500] },
-  x: { domain: [-50, 50] },
+  x: { domain: [xmin, xmax] },
   marks: [
     // Axes
     Plot.ruleX([0]),
@@ -538,14 +539,14 @@ $$
 $$
 Note that we have written the case $a=0$ separately.
 
-To understand the nature of the optimal solution, we reperate the simulation given above with $K=4$.
+To understand the nature of the optimal solution, we repeat the simulation given above with $K=4$.
 
 ```{julia}
 df_K = DataFrame(time=Int[], state=Int[], value=Float64[], policy=Int[], shortage=Float64[])
 
 for cs in Cs
   (S,V,π) = generate_binomial_demand(n,q,ch,cs,p,T,4)
-  for t in 1:T, s in S
+  for t in 1:T, s in xmin:xmax
     push!(df_K, (t, s, V[t][s], π[t][s],cs))
   end
 end
@@ -568,7 +569,7 @@ viewof cs_val_K = Object.assign(Inputs.range([0.5, 5], {label: "cs", step: 0.5, 
 valuePlot_K = Plot.plot({
   grid: true,
   y: { domain: [0, 500] },
-  x: { domain: [-50, 50] },
+  x: { domain: [xmin, xmax] },
   marks: [
     // Axes
     Plot.ruleX([0]),
