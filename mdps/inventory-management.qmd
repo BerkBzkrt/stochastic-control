@@ -470,17 +470,17 @@ $$ V^*_t(s) = \min_{a \in \reals_{\ge 0}} \bigl\{ p(s + a) + H_t(s + a)
 = \min_{a \in \reals_{\ge 0}} f_t(s+a) - p s.
 $$
 As usual, we prove the result by backward induction. For $t=T$, 
-$$\bar Q^*_T(z) = \EXP[ h(z - W) ] $$
+$$H_T(z) = \EXP[ h(z - W) ] $$
 which is convex because $h(z)$ is convex. $f_T(z) = p z + Q^*_T(z)$ is the
 sum of a linear function and convex function and is, therefore, convex. 
 Then, by fact 2 above,
 $$π^*_T(s) = \arg \min_{a \in \reals_{\ge 0}} f_T(s+a) = \max(σ_T - s, 0)
 $$
 and
-$$V^*_T(s) = \min_{a \in \reals_{\ge 0}} f_T(s + a) - px = 
+$$V^*_T(s) = \min_{a \in \reals_{\ge 0}} f_T(s + a) - p s = 
   \begin{cases}
     f_T(s) - p s, & \text{if } s > σ_T \\
-    f_T(σ_T) - px, & \text{if } s \le σ_T.
+    f_T(σ_T) - p s, & \text{if } s \le σ_T.
   \end{cases}
 $$
 Substituting $f_t(z) = p z + H_t(z)$, we get that both
