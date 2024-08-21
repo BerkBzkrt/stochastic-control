@@ -911,15 +911,13 @@ Show that the optimal policy is still a base-stock policy.
 
 ## Notes {-}
 
-Inventory management models with deterministic demand were introduced by @Harris1913. The mathematical model of inventory management considered here was originally proposed by @Arrow1951. The optimality of base-stock policy was established by @Bellman1955. For a detailed overview of inventory management, see @Zipkin2000.
+Inventory management models with deterministic demand were introduced by @Harris1913. The mathematical model of inventory management considered here was originally proposed by @Arrow1951. The optimality of base-stock policy was established by @Bellman1955. See the notes on [infinite horizon](inventory-management-revisited.html) version of this model to see how to find the threshold in closed form. 
 
 A model where $\S = \reals$ but $\ALPHABET A = \integers_{\ge 0}$ is considered in @Veinott1965. It's generalization with positive ordering cost is considered in @Tsitsiklis1984. 
 
-The following generalizations of the basic model are presented in these notes:
-
-- See the notes on [inventory management with lost demand](#inventory-lost-demand) that the optimal policy is a base-stock policy even when excess demand is lost rather than backlogged (i.e., when the dynamics are of the form $S_{t+1} = \max\{S_t + A_t - W_t, 0\}$. 
-
-- See the notes on [infinite horizon](inventory-management-revisited.html) version of this model to see how to find the threshold in closed form. 
 
 Sufficient conditions for the optimality of $(s,S)$-policies were presented in @Dvoretzky1953. 
-The notion of $K$-convexity and optimality of $(s,S)$-policies is due to @Scarf1960. An alternative proof under a different set of assumptions was provided by @Veinott1966. The proof of @lem-s-S-property is borrowed from @Bertsekas:book. The proof of @thm-s-S-policy is from @Scarf1960. See @Bertsekas:book for an alternative proof of @thm-s-S-policy.
+The notion of $K$-convexity and optimality of $(s,S)$-policies is due to @Scarf1960. An alternative proof under a different set of assumptions was provided by @Veinott1966. The proof of @lem-s-S-property is borrowed from @Bertsekas:book. The proof of @thm-s-S-policy is from @Scarf1960. See @Bertsekas:book for an alternative proof of @thm-s-S-policy and generalization of @thm-s-S-policy to the setting of lost sales (discussed in Exercise 4.6 of @Bertsekas:book).
+
+For a detailed overview of inventory management, see @Zipkin2000.
+
