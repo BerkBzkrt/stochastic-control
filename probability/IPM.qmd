@@ -90,6 +90,8 @@ IPM is a metric when $d(μ_1, μ_2) = 0 \implies μ_1 = μ_2$.
       \F = \{ f : \NORM{f}_{∞} \le 1 \}.
     $$
 
+    See @Adell2006 for exact TV distance between some common distributions.
+
 3. **Kantorovich-Rubinstein metric or Wasserstein distance.**
    Let $(\ALPHABET S, \mathfrak S)$ be a probability space and $d_{\ALPHABET S}$ be a metric on $\ALPHABET S$. Let $p \in [1, +\infty]$. Then the Wasserstein $p$-distance between two measures $μ$ and $ν$ on $(\ALPHABET S, \mathfrak S)$ is defined as
    $$
