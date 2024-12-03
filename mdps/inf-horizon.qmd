@@ -458,6 +458,27 @@ f. $$ \| V^π - V^* \| \le \frac{2γ}{1 - γ} \| V - V^* \|. $$
 
 :::
 
+:::{#exr-Bellman-sum}
+
+Let $\BELLMAN_1$ and $\BELLMAN_2$ be two Bellman operators on the same space. Show that if $\BELLMAN_1$ and $\BELLMAN_2$ have the same unique fixed point then so does $α \BELLMAN_1 + (1-α) \BELLMAN_2$, where $α \in (0,1)$ is a constant. 
+:::
+
+:::{#exr-Bellman-eligibility}
+Given a Bellman operator $\BELLMAN$ and $λ \in (0,1)$, define the operator $\BELLMAN_{λ}$ as follows:
+$$
+  \BELLMAN_{λ} v = \sum_{n=1}^∞ λ^{n-1} \BELLMAN^n v
+$$
+where $\BELLMAN^n$ is the Bellman operator $\BELLMAN$ applied $n$-times. Use the result of @exr-Bellman-sum to show that $\BELLMAN_{λ}$ has the same fixed point as $\BELLMAN$. 
+:::  
+
+
+:::{#exr-multiple-greedy}
+Let $V^*$ denote the optimal value function of an MDP. Suppose that two deterministic policies $π_1$ and $π_2$ are both greedy with respect to $V^*$.
+
+(a) Consider the stochastic policy $π = α π_1 + (1-α) π_2$, which, at each stage picks policy $π_1$ with probability $α$ and picks policy $π_2$ with probability $(1-α)$, where $α \in (0,1)$ is a constant. Show that policy $π$ is also optimal.
+
+(b) Consider the periodic policy $\bar π = (π_1, π_2, π_1, π_2, \dots)$ which chooses policy $π_1$ at odd times and policy $π_2$ at even times. Show that $\bar π$ is also an optimal policy. 
+:::
 
 ## Notes{-}
 
