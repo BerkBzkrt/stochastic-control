@@ -469,14 +469,14 @@ $$
   = 
   \ALPHABET K(f_W, f_{\hat W})
 $$
-where the last equality uses the fact that shifting two distributions does not change their Wasserstein distance[^1]. Thus, 
+where the last equality uses the fact that shifting two distributions does not change their Wasserstein distance[^note1]. Thus, 
 $$
   δ = \ALPHABET K(f_W, f_{\hat W})
 $$
 is the Wasserstein distance between the 
 
 
-[^1]: For our 1-dimension setting, this fact can be seen immediately from the formula of Wasserstein distance in terms of the CDF of random varaibles:
+[^note1]: For our 1-dimension setting, this fact can be seen immediately from the formula of Wasserstein distance in terms of the CDF of random varaibles:
 $$
   \ALPHABET K(X,Y) = \int_{-∞}^∞ \ABS{ F_X(t) - F_Y(t) } dt.
 $$
@@ -974,10 +974,10 @@ $$
  δ_{\F} = \sup_{(s,a) \in \ALPHABET S × \ALPHABET A} d_{\F}
   (P(\cdot \mid s,a), \hat P(\cdot \mid s,a)).
 $$
-When $\F = \{ f : \tfrac 12 \SPAN(f) \le 1 \}$ (or equivalently, $\F = \{f : \NORM{f}_{∞} \le 1 \}$), $d_{\F}$ is the total variation distance[^1], and we denote $δ_{\F}$ as $δ_{\rm TV}$. 
+When $\F = \{ f : \tfrac 12 \SPAN(f) \le 1 \}$ (or equivalently, $\F = \{f : \NORM{f}_{∞} \le 1 \}$), $d_{\F}$ is the total variation distance[^IPM], and we denote $δ_{\F}$ as $δ_{\rm TV}$. 
 
 
-[^1]: See [notes on IPM](../probability/IPM.qmd) for details.
+[^IPM]: See [notes on IPM](../probability/IPM.qmd) for details.
 
 (a) Show that for any $v,w \colon \ALPHABET S \to \reals$, we have
    $$
