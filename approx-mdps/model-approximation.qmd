@@ -967,7 +967,7 @@ Note that the above bounds require the knowledge of $\hat V^*$. As in @cor-model
 ## Exercises {-}
 
 :::{#exr-refined-bounds}
-The objective of this exercise is to obtain a tighter bound in terms of $ρ_{\F}(V^*$ than the one in @thm-model-error-IPM. 
+The objective of this exercise is to obtain a tighter bound in terms of $ρ_{\F}(V^*)$ than the one in @thm-model-error-IPM. 
 
 Let $δ_{\F}$ denote the error in the dynaimcs corresponding to function class $\F$, i.e., 
 $$
