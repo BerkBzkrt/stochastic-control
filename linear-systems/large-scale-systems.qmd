@@ -7,7 +7,7 @@ keywords:
 
 :::{.callout-note icon=false appearance="simple"}
 # <i class="bi bi-journal-text text-primary"></i> Summary
-The [Riccati update] for [LQ systems] has a complexity $\mathcal O(n^3)$, which $n$ is the size of the state space. So even computing the otimal gains in a large-scale system is computationally challenging. In this section we show that under certain regularity and symmetry assumptions, the optimal solution of a large-scale system can be computed with low complexity. 
+The [Riccati update] for [LQ systems] has a complexity $\mathcal O(d_x^3)$, which $d_x$ is the size of the state space. So even computing the otimal gains in a large-scale system is computationally challenging. In this section we show that under certain regularity and symmetry assumptions, the optimal solution of a large-scale system can be computed with low complexity. 
 :::
 
 [Riccati update]: lqr.qmd#def-Riccati-operator
@@ -15,7 +15,7 @@ The [Riccati update] for [LQ systems] has a complexity $\mathcal O(n^3)$, which 
 
 ## Mean-field control
 
-Consider a system consisting of $N$ subsystems, indexed by the set $\ALPHABET N \coloneqq \{1, \dots, N\}$. Each subsystem $i \in \ALPHABET N$ has a state $x^i_t \in \reals^{n}$ and a control input $u^i_t \in \reals^m$. The dynamics of each subsystem are given as
+Consider a system consisting of $N$ subsystems, indexed by the set $\ALPHABET N \coloneqq \{1, \dots, N\}$. Each subsystem $i \in \ALPHABET N$ has a state $x^i_t \in \reals^{d_x}$ and a control input $u^i_t \in \reals^{d_u}$. The dynamics of each subsystem are given as
 \begin{equation}\label{eq:dynamics}
   x^i_{t+1} = A x^i_t + B u^i_t + D \bar x_t + E \bar u_t + w^i_t
 \end{equation}
@@ -55,7 +55,7 @@ We are interested in identifying policies $g = (g_1, \dots, g_{T-1})$ where $\pm
 :::{.callout-warning}
 ### Weakly coupled dynamics and cost
 
-Note that the subsystems are weakly coupled in the dynamics and cost. A naive solution using by solving a single Riccati equation has a complexity of $\mathcal O(n^3 N^3)$, which scales cubically in the number of agents.
+Note that the subsystems are weakly coupled in the dynamics and cost. A naive solution using by solving a single Riccati equation has a complexity of $\mathcal O(d_x^3 N^3)$, which scales cubically in the number of agents.
 :::
 
 ### State space decomposition
@@ -140,7 +140,7 @@ Note that the only coupling between the subsystems is through the noise. Therefo
 
 The above result is significant, both for synthesis and implementation. 
 
-For synthesis, rather than solving one Riccati equation with state dimension $nN$, we need to solve two Riccati equations with dimension $n$. Thus, the complexity of computing the optimal controller gains does not depend on the number $N$ of subsystems.
+For synthesis, rather than solving one Riccati equation with state dimension $nN$, we need to solve two Riccati equations with dimension $d_x$. Thus, the complexity of computing the optimal controller gains does not depend on the number $N$ of subsystems.
 
 For implementation, each subsystem does not need access to the global state $\pmb x_t$; instead it just needs access to the mean-field $\bar x_t$ in addition to its local state $x^i_t$. 
 :::

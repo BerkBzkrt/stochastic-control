@@ -17,12 +17,12 @@ To be consistent with the notation used in linear systems, we denote the state a
 Moreover, we follow the control notation of denoting the policy by $g$ rather than $π$. 
 :::
 
-Consider a _linear_ stochastic system with state $x_t \in \reals^n$ and controls $u_t \in \reals^m$ where the dynamics are given by
+Consider a _linear_ stochastic system with state $x_t \in \reals^{d_x}$ and controls $u_t \in \reals^{d_u}$ where the dynamics are given by
 \begin{equation}\label{eq:dynamics}
   x_{t+1} = A x_t + B u_t + w_t,
   \quad t \ge 1
 \end{equation}
-where $A \in \reals^{n × n}$ and $B \in \reals^{n × m}$ are known matrices and $\{w_t\}_{t \ge 1}$, $w_t \in \reals^n$ is process noise. The objective is to choose the control policy $g = (g_1, \dots, g_{T-1})$, where $u_t = g_t(x_{1:t}, u_{1:t-1})$, to minimize
+where $A \in \reals^{d_x × d_x}$ and $B \in \reals^{d_x × d_u}$ are known matrices and $\{w_t\}_{t \ge 1}$, $w_t \in \reals^{d_x}$ is process noise. The objective is to choose the control policy $g = (g_1, \dots, g_{T-1})$, where $u_t = g_t(x_{1:t}, u_{1:t-1})$, to minimize
 $$
   J(g) = \EXP\biggl[ \sum_{t=1}^{T-1} c(x_t, u_t) + c_T(x_T) \biggr]
 $$
@@ -64,7 +64,7 @@ where the matrix $\MATRIX{Q & S \\ S^\TRANS & R}$ is symmetric and positive semi
 :::{.callout-tip}
 #### A useful property 
 
-Let $x \in \reals^n$ be a random variable with mean $μ$ and covariance $Σ$. Then,
+Let $x \in \reals^{d_x}$ be a random variable with mean $μ$ and covariance $Σ$. Then,
 $$
 \EXP[ x^\TRANS P x ] = μ^\TRANS P μ + \TR(P Σ)
 $$
@@ -75,7 +75,7 @@ We start from a simple observation.
 
 ::: {#lem-completion-of-squares}
 ### Completion of squares
-Let $x \in \reals^n$, $u \in \reals^m$, and $w \in \reals^n$ be random variables defined on a common probability space. Suppose $w$ is zero mean with finite covariance and independent of $(x,u)$. Let $x_{+} = Ax + Bu + w$, where $A$ and $B$ are matrices of appropriate dimensions. Then, given matrices $P$, $Q$, $S$, and $R$ of appropriate dimensions,
+Let $x \in \reals^{d_x}$, $u \in \reals^{d_u}$, and $w \in \reals^{d_x}$ be random variables defined on a common probability space. Suppose $w$ is zero mean with finite covariance and independent of $(x,u)$. Let $x_{+} = Ax + Bu + w$, where $A$ and $B$ are matrices of appropriate dimensions. Then, given matrices $P$, $Q$, $S$, and $R$ of appropriate dimensions,
 $$
 \EXP\left[
 \MATRIX{x \\ u}^\TRANS \MATRIX{Q & S \\ S^\TRANS & R } \MATRIX{ x \\ u}
@@ -118,11 +118,11 @@ The proof follows immediately by completing the square on the left hand side. In
 :::
 
 ::: {#def-Riccati-operator}
-Given the system model $(A,B)$ and per-step cost $(Q,S,R)$, we define the _Riccati operator_ $\RICCATI \colon \mathbb{S}^{n × n}_{\ge 0} \to \mathbb{S}^{n × n}_{\ge 0}$ as follows:
+Given the system model $(A,B)$ and per-step cost $(Q,S,R)$, we define the _Riccati operator_ $\RICCATI \colon \mathbb{S}^{d_x × d_x}_{\ge 0} \to \mathbb{S}^{d_x × d_x}_{\ge 0}$ as follows:
 $$ \RICCATI P = Q + A^\TRANS P A 
 - (S^\TRANS + B^\TRANS P A)^\TRANS (R + B^\TRANS P B)^{-1}
   (S^\TRANS + B^\TRANS P A).$$
-Moreover, define the _Gain_ operator $\GAIN \colon \mathbb{S}^{n × n}_{\ge 0} \to \reals^{m × n}$ as
+Moreover, define the _Gain_ operator $\GAIN \colon \mathbb{S}^{d_x × d_x}_{\ge 0} \to \reals^{d_u × d_x}$ as
 $$ \GAIN P = - (R + B^\TRANS P B)^{-1}(S^\TRANS + B^\TRANS P A). $$
 :::
 
@@ -357,7 +357,7 @@ As an example, consider a discretized model of a second-order integrator, which 
 $$
   \dot x(t) = \MATRIX{0 & 1 \\ 0 & 0} x(t) + \MATRIX{0\\ \frac 1m}u(t)
 $$
-where $x(t) \in \reals^2$ with $x_1(t)$ indicating position and $x_2(t)$ indicating velocity, $u(t) \in \reals$ denotes force, and $m$ is a parameter denoting mass. We discretize the dynamics using zero-order hold [@Wittenmark2002] with a sampling time of $Δt$. First observe that the matrix $A_c = \left[ \begin{smallmatrix}0 & 1 \\ 0 & 0\end{smallmatrix}\right]$ is _nilpotent_ because $A_c^2 = 0$. Therefore, the matrix exponential simplifies to 
+where $x(t) \in \reals^2$ with $x_1(t)$ indicating position and $x_2(t)$ indicating velocity, $u(t) \in \reals$ denotes force, and $d_u$ is a parameter denoting mass. We discretize the dynamics using zero-order hold [@Wittenmark2002] with a sampling time of $Δt$. First observe that the matrix $A_c = \left[ \begin{smallmatrix}0 & 1 \\ 0 & 0\end{smallmatrix}\right]$ is _nilpotent_ because $A_c^2 = 0$. Therefore, the matrix exponential simplifies to 
 $$
   e^{A_ct} = I + A_c t = 
   \MATRIX{1 & t \\ 0 & 1}.
@@ -366,7 +366,7 @@ Therefore, the discretized model is
 \begin{align*} 
   A &= e^{A_c Δt} = \MATRIX{1 & Δt \\ 0 & 1},
   &
-  B &= \int_{0}^{Δt} e^{A_ct} B_c dt = \MATRIX{\tfrac12 Δt^2 \\ \frac{Δt}{m}}
+  B &= \int_{0}^{Δt} e^{A_ct} B_c dt = \MATRIX{\tfrac12 Δt^2 \\ \frac{Δt}{d_u}}
 \end{align*}
 
 We further assume that there is a disturbance with variance $σ^2$ at the actuation, so the discretized model is 
@@ -386,15 +386,15 @@ $$
 
 ### Regulation {-}
 
-We first solve the regulation problem. Assume $m = 1\,\text{kg}$, $Δt = 0.1\,\text{s}$ and noise covariance $σ^2 = 0.05$. The output (i.e., position) and the input (i.e., force) for a $T = 10\,\text{s}$ simulation of the system are shown in @fig-lqr-integrator. Note that, as expected, as the cost of applying control increases, less force is applied and it takes longer for the position to become close to zero. 
+We first solve the regulation problem. Assume $d_u = 1\,\text{kg}$, $Δt = 0.1\,\text{s}$ and noise covariance $σ^2 = 0.05$. The output (i.e., position) and the input (i.e., force) for a $T = 10\,\text{s}$ simulation of the system are shown in @fig-lqr-integrator. Note that, as expected, as the cost of applying control increases, less force is applied and it takes longer for the position to become close to zero. 
 
 ```{julia}
 #| output: true
 const Δt = 0.1
-const m  = 1
+const d_u  = 1
 
 A = [1 Δt; 0 1] 
-B = [Δt^2/2; Δt/m]   
+B = [Δt^2/2; Δt/d_u]   
 Q = [1. 0.; 0. 0.]
 QT = Q
 R = range(start=0.1, step=0.1, stop=2.5)
@@ -537,7 +537,7 @@ What is the optimal solution to the LQR problem when $Q \succ 0$ and $R = 0$?
 :::{#exr-lqr-noise-coupled}
 ### Noise coupled subsystems
 
-Consider a system with two subsystems: subsytem 1 with state $x^1_t \in \reals^{n^1}$ and control $u^1_t \in \reals^{m^1}$ and subsystem 2 with state $x^2_t \in \reals^{n^2}$ and control $u^2_t \in \reals^{m^2}$. The dynamics are coupled only though the noise, i.e., 
+Consider a system with two subsystems: subsytem 1 with state $x^1_t \in \reals^{d_x^1}$ and control $u^1_t \in \reals^{d_u^1}$ and subsystem 2 with state $x^2_t \in \reals^{d_x^2}$ and control $u^2_t \in \reals^{d_u^2}$. The dynamics are coupled only though the noise, i.e., 
 \begin{align*}
   x^1_{t+1} &= A^{11} x^1_t + B^1 u^1_t + w^1_t \\
   x^2_{t+1} &= A^{22} x^2_t + B^2 u^2_t + w^2_t 
