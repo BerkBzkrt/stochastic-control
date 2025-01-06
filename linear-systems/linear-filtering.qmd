@@ -1,0 +1,60 @@
+---
+title: Linear filtering
+keywords: 
+  - filtering
+  - Kalman filtering
+execute:
+  echo: false
+  freeze: true
+  cache: true
+---
+
+## Hilbert space of random variables
+
+We start with a review of some basic definitions from real analysis.
+
+A **linear vector space over reals** is a set $\ALPHABET V$ of elements called _vectors_ satisfying the following conditions:
+
+1. **Vector addition:** For any $v, w \in \ALPHABET V$, there is a unique vector $v + w \in \ALPHABET V$ (called the _sum_) that satisfies the following properties: for all $u, v,w \in \ALPHABET V$, we have
+  
+   - _Commutativity:_ $v + w = w + v$
+   - _Associativity:_ $(u + v) + w = u + (v + w)$
+   - _Existence of an identity:_ There exists a unique vector $\mathbf{0} \in \ALPHABET V$ such that 
+     $$v + \mathbf{0} = v, \quad \forall v \in \ALPHABET V$$
+   - _Existence of an inverse:_ For each $v \in \ALPHABET V$, there exists $(-v) \in \ALPHABET V$ such that
+     $$ v + (-v) = \mathbf{0}.$$
+
+2. **Scalar multiplication:** For every scalar $α \in \reals$ and vector $v \in \ALPHABET V$, there exists a unique vector $αv \in \ALPHABET V$ (called the _product_) that satisfies the following properties: for all $v, w \in \ALPHABET V$ and $α, β \in \reals$, we have
+
+   - _Distributed law over vectors:_ $α ⋅ (v + w) = α ⋅ v + α ⋅ w$
+   - _Distributed law over scalars:_ $(α + β) ⋅ v = α ⋅ v + β ⋅ v$$
+   - _Associative law for scalar multiplication:_ $α ⋅ (β ⋅ v) = (α β) ⋅ v$
+   - _Existence of multiplicative identity:_ $1 ⋅ v = v$.
+
+A **pre-Hilbert space over reals** is a linear vector space $\ALPHABET H$ over reals which is equipped with an _inner product_ function $\IP{⋅}{⋅}$ that satisfies the following conditions: for all $x,y, z \in \ALPHABET H$ and $α, β \in \reals$
+
+1. $\IP{x}{y} = \IP{y}{x}$
+2. $\IP{x}{x} \ge 0$ and $\IP{x}{x} = 0$ if and only if $x = 0$
+3. $\IP{α ⋅ x + β ⋅ y}{z} = α \IP{x}{z} + β \IP{y}{z}$. 
+
+The **norm** of a pre-Hilbert space is a function $\NORM{⋅} \colon \ALPHABET H \to \reals_{\ge 0}$ defined by
+$$
+  \NORM{x} = \sqrt{\IP{x}{x}}.
+$$
+
+It can be shown that the norm satisfies the following properties: for any $x, y \in \ALPHABET H$, we have
+
+1. **The Cauchy-Schwarz inequality:** 
+   $$\ABS{\IP{x}{y}} \le \NORM{x} ⋅ \NORM{y}.$$
+
+2. **The triangle inequality:** 
+   $$\NORM{x + y} \le \NORM{x} + \NORM{y}.$$
+
+3. **The parallelogram equality:**
+   $$\NORM{x + y}^2 + \NORM{x - y}^2 = 2 \NORM{x}^2 + 2 \NORM{y}^2. $$
+
+     
+
+## Linear estimation
+
+Let $x \in \reals^{d_x}$ and $y \in \reals^{d_y}$ be random variables defined on a common probability space. For simplicity we will assume that the random variables have zero mean.
