@@ -111,6 +111,7 @@ book:
         - linear-algebra/trace.qmd
         - linear-algebra/infinite-product-of-matrices.qmd
         - linear-algebra/svd.qmd
+        - linear-algebra/vector-and-hilbert-spaces.qmd
         - linear-algebra/rkhs.qmd
     - part: "Convexity Appendix"
       chapters:

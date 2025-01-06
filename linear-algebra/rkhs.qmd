@@ -77,7 +77,7 @@ $\NORM{ψ(g)}_{\mathcal F'} = \NORM{g}_{\mathcal F}$.
 
 ## Reproducing kernel Hilbert space
 
-Let $\mathcal H$ be a Hilbert space of functions mapping from some non-empty
+Let $\mathcal H$ be a [Hilbert space] of functions mapping from some non-empty
 set $\ALPHABET X$ to $\reals$. Note that for every $x \in \ALPHABET X$, there
 is a very special functional on $\mathcal H$: the one that assigns to each $f
 \in \mathcal H$, its value at $x$. This is called the **evaluation
@@ -238,3 +238,5 @@ Differentiating wrt $α$ and setting this to zero, we get
 $$ 
   α^* = (K + λI_n)^{-1} y. 
 $$
+
+[Hilbert space]: vector-and-hilbert-spaces.qmd#hilbert-space

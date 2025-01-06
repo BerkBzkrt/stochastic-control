@@ -1,0 +1,146 @@
+---
+title: Vector and Hilbert spaces
+---
+
+## Vector space
+
+A **linear vector space over reals** is a set $\ALPHABET V$ of elements called _vectors_ satisfying the following conditions:
+
+1. **Vector addition:** For any $v, w \in \ALPHABET V$, there is a unique vector $v + w \in \ALPHABET V$ (called the _sum_) that satisfies the following properties: for all $u, v,w \in \ALPHABET V$, we have
+  
+   - _Commutativity:_ $v + w = w + v$
+   - _Associativity:_ $(u + v) + w = u + (v + w)$
+   - _Existence of an identity:_ There exists a unique vector $\mathbf{0} \in \ALPHABET V$ such that 
+     $$v + \mathbf{0} = v, \quad \forall v \in \ALPHABET V$$
+   - _Existence of an inverse:_ For each $v \in \ALPHABET V$, there exists $(-v) \in \ALPHABET V$ such that
+     $$ v + (-v) = \mathbf{0}.$$
+
+2. **Scalar multiplication:** For every scalar $α \in \reals$ and vector $v \in \ALPHABET V$, there exists a unique vector $αv \in \ALPHABET V$ (called the _product_) that satisfies the following properties: for all $v, w \in \ALPHABET V$ and $α, β \in \reals$, we have
+
+   - _Distributed law over vectors:_ $α ⋅ (v + w) = α ⋅ v + α ⋅ w$
+   - _Distributed law over scalars:_ $(α + β) ⋅ v = α ⋅ v + β ⋅ v$$
+   - _Associative law for scalar multiplication:_ $α ⋅ (β ⋅ v) = (α β) ⋅ v$
+   - _Existence of multiplicative identity:_ $1 ⋅ v = v$.
+
+
+A **linear subspace** $\ALPHABET M$ of a vector space $\ALPHABET V$ is a subset of $\ALPHABET V$ such that $v, w \in \ALPHABET M$ implies that $α ⋅ v + β ⋅ w \in \ALPHABET M$ for all $α, β \in \reals$. 
+
+$\ALPHABET M$ is said to be a **proper subspace** if $\ALPHABET M \neq \ALPHABET V$. 
+
+
+## Pre-Hilbert space
+
+A **pre-Hilbert space over reals** is a linear vector space $\ALPHABET H$ over reals which is equipped with an _inner product_ function $\IP{⋅}{⋅}$ that satisfies the following conditions: for all $x,y, z \in \ALPHABET H$ and $α, β \in \reals$
+
+1. $\IP{x}{y} = \IP{y}{x}$
+2. $\IP{x}{x} \ge 0$ and $\IP{x}{x} = 0$ if and only if $x = 0$
+3. $\IP{α ⋅ x + β ⋅ y}{z} = α \IP{x}{z} + β \IP{y}{z}$. 
+
+The **norm** of a pre-Hilbert space is a function $\NORM{⋅} \colon \ALPHABET H \to \reals_{\ge 0}$ defined by
+$$
+  \NORM{x} = \sqrt{\IP{x}{x}}.
+$$
+
+It can be shown that the norm satisfies the following properties: for any $x, y \in \ALPHABET H$, we have
+
+1. **The Cauchy-Schwarz inequality:** 
+   $$\ABS{\IP{x}{y}} \le \NORM{x} ⋅ \NORM{y}.$$
+
+2. **The triangle inequality:** 
+   $$\NORM{x + y} \le \NORM{x} + \NORM{y}.$$
+
+3. **The parallelogram equality:**
+   $$\NORM{x + y}^2 + \NORM{x - y}^2 = 2 \NORM{x}^2 + 2 \NORM{y}^2. $$
+
+## Hilbert space
+
+- Define a **distance function** $d \colon \ALPHABET H × \ALPHABET H \to \reals$ to be $d(x,y) = \NORM{x - y}$. It is easy to verify that $d(⋅,⋅)$ satisfies:
+
+  - $d(x,y) = d(y,x)$
+  - $d(x,y) = 0$ if and only if $x = y$
+  - $d(x,z) \le d(x,y) + d(y,z)$. 
+
+  Thus, $d$ is a metric and, therefore $(\ALPHABET H, d)$ is a metric space. 
+
+- It can be shown that the inner product is a continuous function from $\ALPHABET H × \ALPHABET H$ into $\reals$, i.e., if $x_n \to x$ and $y_n \to y$ as $n \to ∞$ (in the metric topology on $\ALPHABET H$), then $\IP{x_n}{y_n} \to \IP{x}{y}$ (in the Eucledian topology on $\reals$). 
+
+- Consequently, if $x_n \to x$ then $\NORM{x_n} \to \NORM{x}$ as $N \to ∞$. 
+
+- A sequence $\{x_n\}_{n \ge 1}$ in a metric space is called a **Cauchy sequence** if for every $ε > 0$, there exists an $N$ such that
+  $$
+      d(x_n, x_m) < ε, \quad \forall n, m \ge N.
+  $$
+
+- A pre-Hilbert space $\ALPHABET H$ is said to be **complete** if for every Cauchy sequence $\{x_n\}_{n \ge 1}$, $x_n \in \ALPHABET H$, there exists an $x \in \ALPHABET H$ such that $x_n \to x$ as $n \to ∞$. 
+
+- A **Hilbert space** is a pre-Hilbert space $\ALPHABET H$ that is complete with respect to the metric $d(x,y) = \NORM{x - y}$, $x, y \in \ALPHABET H$. 
+
+## Examples of Hilbert space
+
+
+1. The space $\reals^n$ is a finite-dimensional Hilbert space with the usual inner product
+   $$ \IP{x}{y} = \TR(x y^\TRANS) = \sum_{i=1}^n x_i y_i. $$
+   The completeness follows from the completeness of each of the coordinate spaces and the fact that inner product is a continuous function.
+
+2. Any finite-dimensional pre-Hilbert space $\ALPHABET H$ is complete. This can be shown by constructing a _linear isometry_ from $\ALPHABET H$ to $\reals^n$ using Gram-Schmidt orthogonalization.
+
+3. The space of continuous functions on $[0,1]$, denoted by $C[0,1]$, may be made into a pre-Hilbert space by defining
+   $$
+      \IP{f}{g} = \int_{0}^1 f(t) g(t) dt.
+   $$
+   This space **is not** complete.
+
+4. The space of measurable functions on $[0,1]$ with finite second moment (i.e., $\int_{0}^1 (f(t))^2 dt < ∞$), denoted by $L^2([0,1])$, can also be made into a pre-Hilbert space by defining
+   $$
+      \IP{f}{g} = \int_{0}^1 f(t) g(t) dt.
+   $$
+   This space **is** complete and hence a Hilbert space.
+
+## Orthogonal Projection Theorem
+
+In Eucledian spaces, the shortest path from a point to a plane is along the perpendicular from the point to the plane. This is sometimes called the projection theorem. The main result in the geometry of Hilbert spaces is a generalization of this result called the _Orthogonal projection theorem_. We start with some notation before describing the result.
+
+Let $\ALPHABET H$ be a Hilbert space
+
+1. Two vectors $x, y \in \ALPHABET H$ are said to be **orthogonal** (denoted by $x \perp y$) if $\IP{x}{y} = 0$. 
+
+2. Given a subset $\ALPHABET S$ of $\ALPHABET H$ and a vector $x \in \ALPHABET H$, we write $x \perp \ALPHABET S$ if $x \perp s$ for all $s \in \ALPHABET S$. 
+
+3. Given two subsets $\ALPHABET S$ and $\ALPHABET T$ of $\ALPHABET H$, we write $\ALPHABET S \perp \ALPHABET T$ if all elements of $\ALPHABET S$ are orthogonal to all elements of $\ALPHABET T$. 
+
+4. Suppose there exist subspaces $\ALPHABET A$ and $\ALPHABET B$ of $\ALPHABET H$ such that $\ALPHABET H = \ALPHABET A + \ALPHABET B$, that is, for each $x \in \ALPHABET H$ there exists a $a \in \ALPHABET A$ and $b \in \ALPHABET B$ such that $x = a + b$. If $\ALPHABET A \perp \ALPHABET B$, then we write $\ALPHABET H = \ALPHABET A \oplus \ALPHABET B$ and say $\ALPHABET H$ is the **direct sum** of $\ALPHABET A$ and $\ALPHABET B$. 
+
+
+::: {#thm-orthogonal-projection}
+#### The Orthogonal Projection Theorem
+
+Let $\ALPHABET M$ be a proper subspace of a Hilbert space $\ALPHABET H$ and $x$ be a point of $\ALPHABET H$. Then $x$ can be uniquely represented in the form
+$$
+  x = y + z
+$$
+where $y \in \ALPHABET M$ and $z \perp \ALPHABET M$. Furthermore, for all $w \in \ALPHABET M$, we have
+$$
+  \NORM{x - w} \ge \NORM{x - y}
+$$
+with equality if and only if $w = y$. 
+
+This unique element $y$ is called the **orthogonal projection** of $x$ onto $\ALPHABET M$. 
+:::
+
+Note that if $\ALPHABET M$ is not a proper subspace of $\ALPHABET H$, we can simply take $z = 0$. 
+
+:::{.callout-tip}
+#### Interpretation of the orthogonal projection theorem
+
+@thm-orthogonal-projection shows that the orthogonal projection of $x$ only $\ALPHABET M$ is equal to 
+$$
+  \arg \min_{w \in \ALPHABET M} \NORM{x - w}.
+$$
+Thus, it is a generalization of the projection theorem of Eucledian spaces.
+:::
+
+
+## Notes {-}
+
+The material presented in this section is standard. The order of presentation and the examples are adapted from @Caines2018.
+
