@@ -11,50 +11,186 @@ execute:
 
 ## Hilbert space of random variables
 
-We start with a review of some basic definitions from real analysis.
+1. Let $(Ω, \ALPHABET F, \PR)$ be a probability space. Let $L_2(Ω, \ALPHABET F, \PR)$ denote the family of all $\reals$-valued random variables on $(Ω, \ALPHABET F, \PR)$ that have finite second moments. 
 
-A **linear vector space over reals** is a set $\ALPHABET V$ of elements called _vectors_ satisfying the following conditions:
+2. It can be easily seen that $L_2(Ω, \ALPHABET F, \PR)$ is a vector space with addition and scalar multiplication defined in the usual way for functions.
 
-1. **Vector addition:** For any $v, w \in \ALPHABET V$, there is a unique vector $v + w \in \ALPHABET V$ (called the _sum_) that satisfies the following properties: for all $u, v,w \in \ALPHABET V$, we have
-  
-   - _Commutativity:_ $v + w = w + v$
-   - _Associativity:_ $(u + v) + w = u + (v + w)$
-   - _Existence of an identity:_ There exists a unique vector $\mathbf{0} \in \ALPHABET V$ such that 
-     $$v + \mathbf{0} = v, \quad \forall v \in \ALPHABET V$$
-   - _Existence of an inverse:_ For each $v \in \ALPHABET V$, there exists $(-v) \in \ALPHABET V$ such that
-     $$ v + (-v) = \mathbf{0}.$$
+3. We can make $L_2(Ω, \ALPHABET F, \PR)$ an inner product space with
+   $$ \IP{x}{y} \coloneqq \EXP[XY]. $$ The associate $L_2$-_norm_ is given by
+   $$
+      \NORM{x}_{2} = \IP{x}{x}^{1/2} = \sqrt{ \EXP[x^2] }.
+   $$
 
-2. **Scalar multiplication:** For every scalar $α \in \reals$ and vector $v \in \ALPHABET V$, there exists a unique vector $αv \in \ALPHABET V$ (called the _product_) that satisfies the following properties: for all $v, w \in \ALPHABET V$ and $α, β \in \reals$, we have
+4. It can be shown that $L_2(Ω, \ALPHABET F, \PR)$ is complete (e.g., from the completeness of $L_p$ spaces) and therefore an Hilbert space. 
 
-   - _Distributed law over vectors:_ $α ⋅ (v + w) = α ⋅ v + α ⋅ w$
-   - _Distributed law over scalars:_ $(α + β) ⋅ v = α ⋅ v + β ⋅ v$$
-   - _Associative law for scalar multiplication:_ $α ⋅ (β ⋅ v) = (α β) ⋅ v$
-   - _Existence of multiplicative identity:_ $1 ⋅ v = v$.
+5. The above argument also works for random vectors. With a slight abuse of notation, we also use $L_2(Ω, \ALPHABET F, \PR)$ to denote all $\reals^n$-valued random variables that have finite second moments. As before, we can show that $L_2(Ω, \ALPHABET F, \PR)$ is a vector space.
 
-A **pre-Hilbert space over reals** is a linear vector space $\ALPHABET H$ over reals which is equipped with an _inner product_ function $\IP{⋅}{⋅}$ that satisfies the following conditions: for all $x,y, z \in \ALPHABET H$ and $α, β \in \reals$
+6. Define the inner product
+   $$ \IP{x}{y} \coloneqq \EXP[ \IP{x}{y} ] = \EXP[ x^\TRANS y ].$$
+   The corresponding norm is
+   $$
+      \NORM{x}_{2} = \IP{x}{x}^{1/2} = \sqrt{ \EXP[\NORM{x}^2] }.
+   $$
+   Again, we can show that the corresponding inner product space is complete and hence a Hilbert space. 
 
-1. $\IP{x}{y} = \IP{y}{x}$
-2. $\IP{x}{x} \ge 0$ and $\IP{x}{x} = 0$ if and only if $x = 0$
-3. $\IP{α ⋅ x + β ⋅ y}{z} = α \IP{x}{z} + β \IP{y}{z}$. 
+## Best linear unbiased estimator (BLUE)
 
-The **norm** of a pre-Hilbert space is a function $\NORM{⋅} \colon \ALPHABET H \to \reals_{\ge 0}$ defined by
+1. Let $x$, $y_1$, $y_2$, $\dots$, $y_t$ be $\reals$ valued random varaibles with finite second moments defined on a common probability space $(Ω, \ALPHABET F, \PR)$. Define
+   $$
+       \ALPHABET L(y_{1:t}) = \{ a_0 + a_1 y_1 + \cdots + a_t y_t :
+       a_0, a_1, \dots, a_t \in \reals \}
+   $$
+   to be the linear span of $y_{1:t}$, which is a finite-dimensional Hilbert subspace of $L_2(Ω, \ALPHABET F, \PR)$. 
+
+2. Define $\hat x = \LEXP[ x \mid \ALPHABET L(y_{1:t}) ]$ to be the orthogonal projection of $x$ onto $\ALPHABET L(y_{1:t})$ (see @thm-orthogonal-projection). From properties of orthogonal projection, we know that $\hat x$ is the \emph{best linear esimator} of $x$with respect to $y_{1:t}$ in the sense that for any $w \in \ALPHABET L(y_{1:t})$, 
+   $$
+      \NORM{ x - w } \ge \NORM{x - \hat x} 
+      ≡
+      \EXP[ \NORM{x - w}^2 ] \le \EXP[ \NORM{ x - \hat x}^2 ].
+   $$
+   For this reason, $\hat x$ is also called the **least squares estimate**
+
+3. Let $\{1, v_1, v_2,\dots,\}$ be an orthonormal basis of $\ALPHABET L(y_{1:t})$ (which can be obtained via Gram-Schmidt orthogonalization procedure). Note that when all vectors are zero mean, we do not need to include the constant $1$ in the basis. Then, 
+   $$
+      \hat x = \IP{x}{1} 1 + \IP{x}{v_1} v_1 + \IP{x}{v_2} v_2 + \cdots.
+   $$
+   Since $(v_1, v_2, \dots,)$ are orthogonal to $1$, we have $\IP{v_i}{1} = 0$. Thus,
+   $$
+      \IP{\hat x}{1} = \IP{x}{1}
+   $$
+   or 
+   $$ \EXP[ \hat x ] = \EXP[x]. $$
+   Hence, $\hat x$ is an **unbiased** estimator. 
+
+4. Another implication is that the error is orthogonal to the estimate, i.e.,
+   $$
+      \IP{\hat x}{x - \hat x} = 0 \implies
+      \EXP[ \hat x (x - \hat x) ] = 0.
+   $$
+   Thus, the error is **uncorrelated** with the estimate.
+
+4. The above argument extends to the vector case in a natural manner. To develop a formula for the best linear estimate, we present a slightly different argument below.
+
+Let $x \in \reals^{d_x}$ and $y \in \reals^{d_y}$ be zero-mean random variables defined on a common probability space that have finite second moments. The zero-mean assumption is imposed for simplicity.
+
+Let $\ALPHABET H$ be the Hilbert space of $\reals^{d_x}$-dimensional random variables with finite second moments equipped with the inner product
 $$
-  \NORM{x} = \sqrt{\IP{x}{x}}.
+  \IP{x_1}{x_2} = \EXP[ x_1^\TRANS x_t].
+$$
+Let $\ALPHABET L(y)$ be the linear $d_x$-dimensional subspace spanned by $y$, i.e.,
+$$
+  \ALPHABET L(y) = \{ K y : K \in \reals^{d_x × d_y} \}.
+$$
+Note that since the random variables are zero-mean, we are not including the subspace spanned by constant vectors. Observe that $\ALPHABET L(y)$ is a subspace of $\ALPHABET H$. 
+
+Now consider the problem of finding the projection $\hat x$ of $x$ onto $\ALPHABET L(y)$. Since $\hat x \in \ALPHABET L(y)$, it must be of the form $K y$ for some $K_\circ \in \reals^{d_x × d_y}$. We will now show how to compute $K$.
+
+Let
+$$
+  Σ_{xx} = \VAR(x), 
+  \quad
+  Σ_{yy} = \VAR(y), 
+  \quad
+  Σ_{xy} = \COV(x,y).
+$$
+By the orthogonal projection theorem (@thm-orthogonal-projection), $\hat x$ is unique and must satisfy
+$$
+  \IP{x - \hat x}{w } = 0, \quad \forall w \in \ALPHABET L(y).
+$$
+Any $w \in \ALPHABET L(y)$ will be of the form $K y$ for some $K \in \reals^{d_x × d_y}$. Thus, the above equation is equivalent to
+\begin{equation}\label{eq:op-1}
+  \EXP[ (x - K_\circ y)^\TRANS K y ] = 0, 
+  \quad \forall K_w \in \reals^{d_x × d_y}.
+\end{equation}
+
+We claim that \eqref{eq:op-1} is equivalent to
+\begin{equation}\label{eq:op-2}
+  \EXP[ (x - K_\circ y) y^\TRANS ] = \mathbf{0}_{d_x × d_y}.
+\end{equation}
+
+:::{.callout-note collapse="true"}
+#### Proof of Claim
+
+Observe that 
+$$
+  (x - K_\circ y)^\TRANS K y ] = 
+  \sum_{i=1}^{d_x} 
+  [ x - K_\circ y ]_i [ K y]_i 
+  = \sum_{i=1}^{d_x} \sum_{j=1}^{d_y} 
+  K_{ij} [ x - K_\circ y ]_i y_j. 
+$$
+Thus,
+\begin{equation}\label{eq:op-3}
+  \EXP[ (x - K_\circ y)^\TRANS K y ] 
+  = \sum_{i=1}^{d_x} \sum_{j=1}^{d_y} 
+  K_{ij} \EXP\bigl[ [ x - K_\circ y ]_i y_j \bigr].
+\end{equation}  
+
+We now show that \eqref{eq:op-1} implies \eqref{eq:op-2}.
+Pick a $(i',j')$ and set $K_{ij} = δ_{ii'} δ_{jj'}$. Then, \eqref{eq:op-1} and \eqref{eq:op-3} imply that
+$$
+  \EXP\bigl[ [ x - K_\circ y ]_{i'} y_{j'} \bigr] = 0.
+$$
+Since $(i',j')$ was arbitrary, the above equation is true for all $(i',j')$. Writing this in vector form gives \eqref{eq:op-2}.
+
+We now show the other direction. If \eqref{eq:op-2} is true, then each term in the summand in the right hand side of \eqref{eq:op-3} is zero, and hence \eqref{eq:op-1} is true. 
+:::
+
+Thus, the claim implies that
+$$
+  Σ_{xy} = \EXP[ x y^\TRANS] = K_\circ \EXP[ y y^\TRANS ] = K_\circ Σ_{yy}.
 $$
 
-It can be shown that the norm satisfies the following properties: for any $x, y \in \ALPHABET H$, we have
+Summarizing the above discussion, we get the following.
 
-1. **The Cauchy-Schwarz inequality:** 
-   $$\ABS{\IP{x}{y}} \le \NORM{x} ⋅ \NORM{y}.$$
+:::{#thm-linear-estimation}
+#### Best Linear Estimation
 
-2. **The triangle inequality:** 
-   $$\NORM{x + y} \le \NORM{x} + \NORM{y}.$$
+Let $x \in \reals^{d_x}$ and $y \in \reals^{d_y}$ be zero-mean random variables defined on a common probability space that have finite second moments. Let
+$$
+  Σ_{xx} = \VAR(x), 
+  \quad
+  Σ_{yy} = \VAR(y), 
+  \quad
+  Σ_{xy} = \COV(x,y).
+$$
 
-3. **The parallelogram equality:**
-   $$\NORM{x + y}^2 + \NORM{x - y}^2 = 2 \NORM{x}^2 + 2 \NORM{y}^2. $$
+Then, the best linear estimator $\hat x$ of $x$ given $y$ is given by 
+$$
+  \hat x = \LEXP[ x \mid \ALPHABET L(y) ] = K_\circ y
+$$
+where $K_\circ$ satisfies the so called normal equation
+$$
+  Σ_{xy} = K_\circ Σ_{yy}.
+$$
+The corresponding error covariance is given by 
+$$
+  \EXP[ (x - \hat x)^\TRANS (x - \hat x) ]
+  = Σ_{xx} - K_\circ Σ_{xy}
+$$
 
-     
+When $Σ_{yy} > 0$ the solution is unique and is given by
+$$
+  K_\circ = Σ_{xy} Σ_{yy}^{-1}.
+$$
+The corresponding mean squared error can be simplied to
+$$
+  \EXP[ (x - \hat x)^\TRANS (x - \hat x) ]
+  = Σ_{xx} - Σ_{xy} Σ_{yy}^{-1} Σ_{xy}
+$$
+which is the [Schur complement](../linear-algebra/positive-definite-matrix.qmd#schur-complement) of $Σ_{yy}$ in the joint covariance matrix
+$$
+  Σ = \MATRIX{ Σ_{xx} & Σ_{xy} \\ Σ_{yx} & Σ_{yy} }.
+$$
+:::
 
-## Linear estimation
+:::{.callout-warning}
+#### The singular case
 
-Let $x \in \reals^{d_x}$ and $y \in \reals^{d_y}$ be random variables defined on a common probability space. For simplicity we will assume that the random variables have zero mean.
+When $Σ_{yy}$ is singular, the normal equation $K_\circ Σ_{yy} = Σ_{xy}$ will be consistent and have multiple solutions. For any choice of a solution $K_\circ$, the best linear estimate $K_\circ y$ is unique.
+:::
+
+## Recursive least squares filtering
+
+To be written
+
