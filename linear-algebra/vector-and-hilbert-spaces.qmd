@@ -28,15 +28,15 @@ A **linear subspace** $\ALPHABET M$ of a vector space $\ALPHABET V$ is a subset 
 $\ALPHABET M$ is said to be a **proper subspace** if $\ALPHABET M \neq \ALPHABET V$. 
 
 
-## Pre-Hilbert space
+## Inner Product space
 
-A **pre-Hilbert space over reals** is a linear vector space $\ALPHABET H$ over reals which is equipped with an _inner product_ function $\IP{⋅}{⋅}$ that satisfies the following conditions: for all $x,y, z \in \ALPHABET H$ and $α, β \in \reals$
+An **inner product space over reals** is a linear vector space $\ALPHABET H$ over reals which is equipped with an _inner product_ function $\IP{⋅}{⋅}$ that satisfies the following conditions: for all $x,y, z \in \ALPHABET H$ and $α, β \in \reals$
 
 1. $\IP{x}{y} = \IP{y}{x}$
 2. $\IP{x}{x} \ge 0$ and $\IP{x}{x} = 0$ if and only if $x = 0$
 3. $\IP{α ⋅ x + β ⋅ y}{z} = α \IP{x}{z} + β \IP{y}{z}$. 
 
-The **norm** of a pre-Hilbert space is a function $\NORM{⋅} \colon \ALPHABET H \to \reals_{\ge 0}$ defined by
+The **norm** of an inner product space is a function $\NORM{⋅} \colon \ALPHABET H \to \reals_{\ge 0}$ defined by
 $$
   \NORM{x} = \sqrt{\IP{x}{x}}.
 $$
@@ -73,7 +73,7 @@ It can be shown that the norm satisfies the following properties: for any $x, y 
 
 - A pre-Hilbert space $\ALPHABET H$ is said to be **complete** if for every Cauchy sequence $\{x_n\}_{n \ge 1}$, $x_n \in \ALPHABET H$, there exists an $x \in \ALPHABET H$ such that $x_n \to x$ as $n \to ∞$. 
 
-- A **Hilbert space** is a pre-Hilbert space $\ALPHABET H$ that is complete with respect to the metric $d(x,y) = \NORM{x - y}$, $x, y \in \ALPHABET H$. 
+- A **Hilbert space** is an inner product space $\ALPHABET H$ that is complete with respect to the metric $d(x,y) = \NORM{x - y}$, $x, y \in \ALPHABET H$. 
 
 ## Examples of Hilbert space
 
@@ -84,13 +84,13 @@ It can be shown that the norm satisfies the following properties: for any $x, y 
 
 2. Any finite-dimensional pre-Hilbert space $\ALPHABET H$ is complete. This can be shown by constructing a _linear isometry_ from $\ALPHABET H$ to $\reals^n$ using Gram-Schmidt orthogonalization.
 
-3. The space of continuous functions on $[0,1]$, denoted by $C[0,1]$, may be made into a pre-Hilbert space by defining
+3. The space of continuous functions on $[0,1]$, denoted by $C[0,1]$, may be made into an inner product space by defining
    $$
       \IP{f}{g} = \int_{0}^1 f(t) g(t) dt.
    $$
    This space **is not** complete.
 
-4. The space of measurable functions on $[0,1]$ with finite second moment (i.e., $\int_{0}^1 (f(t))^2 dt < ∞$), denoted by $L^2([0,1])$, can also be made into a pre-Hilbert space by defining
+4. The space of measurable functions on $[0,1]$ with finite second moment (i.e., $\int_{0}^1 (f(t))^2 dt < ∞$), denoted by $L^2([0,1])$, can also be made into an inner product space by defining
    $$
       \IP{f}{g} = \int_{0}^1 f(t) g(t) dt.
    $$
@@ -124,7 +124,7 @@ $$
 $$
 with equality if and only if $w = y$. 
 
-This unique element $y$ is called the **orthogonal projection** of $x$ onto $\ALPHABET M$. 
+This unique element $y$ is called the **orthogonal projection** of $x$ onto $\ALPHABET M$ and denoted by $\LEXP[ x \mid \ALPHABET M]$.
 :::
 
 Note that if $\ALPHABET M$ is not a proper subspace of $\ALPHABET H$, we can simply take $z = 0$. 
@@ -139,6 +139,21 @@ $$
 Thus, it is a generalization of the projection theorem of Eucledian spaces.
 :::
 
+## Exercises {-}
+
+:::{#exr-iterated-projections}
+
+Let $\ALPHABET H_0$ be a Hilbert space, $\ALPHABET H_1$ be a Hilbert subspace of $\ALPHABET H_0$, and $\ALPHABET H_2$ be a Hilbert subspace of $\ALPHABET H_1$. Let $x,y,z \in \ALPHABET H$ be such that
+$$
+  y = \LEXP[ x \mid \ALPHABET H_1 ]
+  \quad\text{and}\quad
+  z = \LEXP[ y \mid \ALPHABET H_2 ]
+$$
+Show that
+$$
+  z = \LEXP[ x \mid \ALPHABET H_2].
+$$
+:::
 
 ## Notes {-}
 
