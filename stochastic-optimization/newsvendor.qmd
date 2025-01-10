@@ -411,7 +411,7 @@ Thus, the optimal amount to order is the largest $w_i$ such that $M_i \le
 ::: {.callout-important}
 # Graphical interpretation of the result
 
-The structure of the optimal solution is the same for continuous and discrete demand distributions. In particular, the result of @prp-newsvendor-discrete has the same graphical interpretation as that of @prp-newscendor-cts: 
+The structure of the optimal solution is the same for continuous and discrete demand distributions. In particular, the result of @prp-newsvendor-discrete has the same graphical interpretation as that of @prp-newsvendor-cts: 
 
 > Draw the CDF of the demand. The optimal action is the point where the CDF intersects the horizontal line $1 - p/q$.
 
