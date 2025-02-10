@@ -4,7 +4,7 @@ title: Martingales
 
 Consider a probability space $(Ω, \mathcal F, P)$. We define a few key terms:
 
-1. A **filteration** $\{\mathcal F_t\}_{t \ge 1}$ is an increasing familty of sub-sigma-fields of $\mathcal F$, i.e., for any $t_1 < t_2$, $\mathcal F_{t_1} \subseteq \mathcal F_{t_2}$. 
+1. A **filtration** $\{\mathcal F_t\}_{t \ge 1}$ is an increasing familty of sub-sigma-fields of $\mathcal F$, i.e., for any $t_1 < t_2$, $\mathcal F_{t_1} \subseteq \mathcal F_{t_2}$. 
 
 2. The most common way of generating a filtration is through a stochastic process. In particular, given a stochastic process $\{X_t\}_{t \ge 1}$, the filtration $\{\mathcal F_t\}_{t \ge 1}$ given by
    $$
@@ -37,7 +37,7 @@ The condition $\EXP[X_{t+1} \mid \mathcal F_t] = X_t$ may be thought of as a "fa
 
 :::{.callout-important}
 ### Remark
-In the definition of a martingale (and its variants that we will define below), it is assumed that the random variables $\{X_t\}_{t \ge 1}$ are indegrable, i.e., $\EXP[|X_t|] < ∞$ for all $t$. Therefore, the conditional expectations used in the definitions are well defined.
+In the definition of a martingale (and its variants that we will define below), it is assumed that the random variables $\{X_t\}_{t \ge 1}$ are integrable, i.e., $\EXP[|X_t|] < ∞$ for all $t$. Therefore, the conditional expectations used in the definitions are well defined.
 :::
 
 Several desirable properties of martingales are shared by families of random variables for which \\eqref{eq:martingale} is replaced by an inequality. 
@@ -143,7 +143,7 @@ If $\{X_t\}_{t \ge 1}$ is a submartingale, then $\{-X_t\}_{t \ge 1}$ is a superm
 
 3. A stochastic process $\{X_t\}_{t \ge 1}$ is a submartingale if and only if its Doob's decomposition gives a predictable process that is almost surely increasing. 
 
-4. A stochastic process $\{X_t\}_{t \ge 1}$ is a supermartingale if and only if its Doob's decomposition gives a predictable process that is almost surely decreasing 
+4. A stochastic process $\{X_t\}_{t \ge 1}$ is a supermartingale if and only if its Doob's decomposition gives a predictable process that is almost surely decreasing.
 
 
 ## Martingale Inequalities
@@ -269,7 +269,7 @@ The restriction on the length of the stopping time has the following meaning: su
 
 :::
 
-The converges result continues to hold for "almost" supermartingales.
+The convergence result continues to hold for "almost" supermartingales.
 
 :::{#thm-almost-supermartingale}
 ## Almost supermartingale convergence theorem
@@ -541,7 +541,7 @@ Then, show that for all $ω \in Ω_0$, we have that $\lim_{t \to ∞} X_t(ω)$ e
 :::{#exr-vec-almost-supermartingale}
 #### Vector generalization of @thm-almost-supermartingale
 
-In all the discussion of almost supermartingale results so far, we have assumed that the processes were scalar valued. Now consider the case where $\{X_t\}_{t \ge 1}$ and $\{Y_t\}_{t \ge 1}$ are processes in $\reals_{\ge 0}^n$ and $\{A_t\}_{t \ge 1}$ is a process in $\reals_{\ge 0}$, all adapted to a filteration $\{\ALPHABET F_t\}_{t \ge 1}$ such that
+In all the discussion of almost supermartingale results so far, we have assumed that the processes were scalar valued. Now consider the case where $\{X_t\}_{t \ge 1}$ and $\{Y_t\}_{t \ge 1}$ are processes in $\reals_{\ge 0}^n$ and $\{A_t\}_{t \ge 1}$ is a process in $\reals_{\ge 0}$, all adapted to a filtration $\{\ALPHABET F_t\}_{t \ge 1}$ such that
 $$
   \EXP[X_{t+1} \mid \ALPHABET F_t] \le A_t X_t + Y_t.
 $$
@@ -562,7 +562,7 @@ Then, show that for all $ω \in Ω_0$, we have that $\lim_{t \to ∞} X_t(ω)$ e
 :::{#exr-delayed-almost-supermartingales}
 #### Delayed almost supermartingales
 
-Suppose $\{X_t\}_{t \ge 1}$, $\{β_t\}_{t \ge 1}$, and $\{Y_t\}_{t \ge 1}$ be nonnegative processes which are adapted to some filteration $\{\ALPHABET F_t\}_{t \ge 1}$ such that
+Suppose $\{X_t\}_{t \ge 1}$, $\{β_t\}_{t \ge 1}$, and $\{Y_t\}_{t \ge 1}$ be nonnegative processes which are adapted to some filtration $\{\ALPHABET F_t\}_{t \ge 1}$ such that
 $$
   \EXP[ X_{t+1} \mid \ALPHABET F_t] \le (1 + β_t) X_{t-d} + Y_t,
 $$
