@@ -79,20 +79,20 @@ Let $x \in \reals^{d_x}$, $u \in \reals^{d_u}$, and $w \in \reals^{d_x}$ be rand
 $$
 \EXP\left[
 \MATRIX{x \\ u}^\TRANS \MATRIX{Q & S \\ S^\TRANS & R } \MATRIX{ x \\ u}
-+ x_{+} P x_{+} \right]
++ x_{+} P_{+} x_{+} \right]
 = 
-\EXP\bigl[ x^\TRANS P_{+} x  
+\EXP\bigl[ x^\TRANS P x  
     +
     (u + Kx)^\TRANS Δ (u + Kx) 
     +
-    w^\TRANS P w
+    w^\TRANS P_{+} w
     \bigr].
 $$
 where
 
 - $Δ = R + B^\TRANS P B$
-- $K = Δ^{-1}[ S^\TRANS + B^\TRANS P A ]$
-- $P_{+} = Q + A^\TRANS P A - K^\TRANS Δ K$
+- $K = Δ^{-1}[ S^\TRANS + B^\TRANS P_{+} A ]$
+- $P = Q + A^\TRANS P_{+} A - K^\TRANS Δ K$
 :::
 
 :::{.callout-note collapse="true"}  
